@@ -42,22 +42,22 @@ header{
     border-bottom: 1px solid #e0e0e0;
 }
 
-ul {
+nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: #483C32 ;
+  background-color: #483C32;
   display: flex;
 }
 
-ul li a {
+nav ul li a {
   display: block;
   color: white;
   padding: 14px 16px;
   text-decoration: none;
 }
 
-ul li a:hover {
+nav ul li a:hover {
   background-color: var(--terracotta);
 }
 
@@ -340,10 +340,251 @@ footer{
 --------------------------
 */
 
+
 /* -----------------------
     CATALOGUE PAGE
 --------------------------
 */
+
+/* --- Catalogue layout --- */
+.catalogue-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+}
+
+/* --- Search bar --- */
+.search-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.search-container form {
+    display: flex;
+    gap: 10px;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #d8cdb8;
+    border-radius: 3px;
+    font-family: var(--font-body);
+}
+
+.search-container button {
+    padding: 12px 24px;
+    background-color: var(--terracotta);
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: var(--forest-green);
+}
+
+/* --- Filter sidebar, shelf-styled --- */
+.filters {
+    background-color: var(--forest-green);
+    color: #ffffff;
+    width: 260px;
+    flex-shrink: 0;
+    padding: 28px 24px;
+    border-radius: 4px;
+}
+
+.filters h2 {
+    color: #ffffff;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+}
+
+.filters h4 {
+    color: var(--terracotta);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 24px 0 12px;
+}
+
+.filters select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 3px;
+    border: none;
+    font-family: var(--font-body);
+}
+
+/* --- One shelf row + its wooden ledge --- */
+.shelf {
+    margin-bottom: 20px;
+}
+
+.shelf-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    list-style: none;
+    height: 100px;
+    padding-bottom: 14px;
+    margin: 0;
+    border-bottom: 4px solid #6b4429;
+    box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+}
+
+/* --- Each spine: hidden checkbox + styled label --- */
+.spine-item {
+    flex: 1;
+    height: 100%;
+    position: relative;
+}
+
+.spine-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.spine-item label {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 100%;
+    padding-bottom: 10px;
+    writing-mode: vertical-rl;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+    border-radius: 2px 2px 0 0;
+    cursor: pointer;
+    opacity: 0.85;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.spine-item label:hover {
+    transform: translateY(-5px);
+    opacity: 1;
+}
+
+.spine-item input[type="checkbox"]:checked + label {
+    opacity: 1;
+    box-shadow: inset 0 0 0 2px #E3A583;
+    color: #ffffff;
+}
+
+.spine-item input[type="checkbox"]:focus-visible + label {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+}
+
+.spine-item:nth-child(3n+1) label { background-color: #3E6B54; }
+.spine-item:nth-child(3n+2) label { background-color: #33513F; }
+.spine-item:nth-child(3n+3) label { background-color: #8C4A32; }
+
+.filters select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 3px;
+    border: none;
+    font-family: var(--font-body);
+}
+
+/* --- Book cards --- */
+.book-grid {
+    flex: 1;
+}
+
+.book-item {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 18px rgba(0,0,0,0.15);
+}
+
+.book-image {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.book-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.book-name {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.author {
+    font-size: 12px;
+    font-weight: normal;
+    color: #6b6459;
+    margin-bottom: 8px;
+}
+
+.book-details .condition {
+    display: inline-block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--forest-green);
+    background-color: #eae2d3;
+    padding: 3px 8px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+.book-details .price {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--terracotta);
+    margin-bottom: 10px;
+}
+
+.book-details button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--forest-green);
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.book-details button:hover {
+    background-color: var(--terracotta);
+}
+
+@media screen and (max-width: 768px) {
+    .catalogue-wrapper {
+        flex-direction: column;
+    }
+
+    .filters {
+        width: 100%;
+    }
+}
 
 
 

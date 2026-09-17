@@ -10,16 +10,16 @@
 
 
     <header>
-    <nav>
-        <ul>
-            <a href="index.html">Home</a> |
-            <a href="catalogue.html">Catalogue</a> |
-            <a href="bundles.html">Gift Bundles</a> | 
-            <a href="blog.html">Blog/Reviews</a> |
-            <a href="about.html">About Us</a> |
-            <a href="contact.html">Contact</a> |
-        </ul>
-    </nav>
+        <nav>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+               <li><a href="catalogue.html">Catalogue</a></li>
+               <li><a href="bundles.html">Gift Bundles</a></li>
+                <li><a href="blog.html">Blog/Reviews</a></li>
+               <li><a href="about.html">About Us</a></li>
+               <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
@@ -34,33 +34,65 @@
 
     <div class="catalogue-wrapper">
         <!-- 2. Filter Sidebar will pop out like a bookshelf (Secondary Navigation) -->
-        <aside class="filters">
-            <h3>Filter Books</h3>
-            
-            <h4>Genre</h4>
-            <ul>
-                <li><input type="checkbox" class="genre-filter" value="romance"> Romance</li>
-                <li><input type="checkbox" class="genre-filter" value="thriller"> Thrillers</li>
-                <li><input type="checkbox" class="genre-filter" value="fiction"> Fiction</li>
-                <li><input type="checkbox" class="genre-filter" value="fantasy"> Fantasy</li>
-                <li><input type="checkbox" class="genre-filter" value="non-fiction"> Non-Fiction</li>
-            </ul>
+<aside class="filters">
+    <h2>Browse the Shelf</h2>
 
-            <h4>Condition</h4>
-            <ul>
-                <li><input type="checkbox" class="condition-filter" value="new"> New</li>
-                <li><input type="checkbox" class="condition-filter" value="used"> Used</li>
-                <li><input type="checkbox" class="condition-filter" value="like new"> Like New</li>
-            </ul>
+    <h4>Genre</h4>
+    <div class="shelf">
+        <ul class="shelf-row">
+            <li class="spine-item">
+                <input type="checkbox" id="genre-romance" class="genre-filter" value="romance">
+                <label for="genre-romance">Romance</label>
+            </li>
+            <li class="spine-item">
+                <input type="checkbox" id="genre-thriller" class="genre-filter" value="thriller">
+                <label for="genre-thriller">Thrillers</label>
+            </li>
+            <li class="spine-item">
+                <input type="checkbox" id="genre-fiction" class="genre-filter" value="fiction">
+                <label for="genre-fiction">Fiction</label>
+            </li>
+        </ul>
+    </div>
+    <div class="shelf">
+        <ul class="shelf-row">
+            <li class="spine-item">
+                <input type="checkbox" id="genre-fantasy" class="genre-filter" value="fantasy">
+                <label for="genre-fantasy">Fantasy</label>
+            </li>
+            <li class="spine-item">
+                <input type="checkbox" id="genre-nonfiction" class="genre-filter" value="non-fiction">
+                <label for="genre-nonfiction">Non-Fiction</label>
+            </li>
+        </ul>
+    </div>
 
-            <h4>Price Range</h4>
-            <select name="price-filter">
-                <option value="all">All Prices</option>
-                <option value="95">R95 - R120</option>
-                <option value="149">R121 - R149</option>
-                <option value="new books">above R150 (new)</option>
-            </select>
-        </aside>
+    <h4>Condition</h4>
+    <div class="shelf">
+        <ul class="shelf-row">
+            <li class="spine-item">
+                <input type="checkbox" id="cond-new" class="condition-filter" value="new">
+                <label for="cond-new">New</label>
+            </li>
+            <li class="spine-item">
+                <input type="checkbox" id="cond-used" class="condition-filter" value="used">
+                <label for="cond-used">Used</label>
+            </li>
+            <li class="spine-item">
+                <input type="checkbox" id="cond-likenew" class="condition-filter" value="like new">
+                <label for="cond-likenew">Like New</label>
+            </li>
+        </ul>
+    </div>
+
+    <h4>Price Range</h4>
+    <select name="price-filter">
+        <option value="all">All Prices</option>
+        <option value="95">R95 - R120</option>
+        <option value="149">R121 - R149</option>
+        <option value="new books">above R150 (new)</option>
+    </select>
+</aside>
 
         <!-- 3. All books (Catalogue main content) -->
         <section class="book-grid">
