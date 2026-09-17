@@ -15,6 +15,7 @@
     --terracotta: #C85A32;
     --cream-bg: #FDFBF7;
     --dark-text: #2B2B2B;
+    --forest-dark: #1F3D1C;
     --font-heading: 'Georgia', serif;
     --font-body: 'Arial', sans-serif;
 }
@@ -55,16 +56,16 @@ button:focus-visible {
    HEADER + NAV
 ============================ */
 header {
-    background-color: #ffffff;
-    padding: 0.9375rem 1.25rem;
-    border-bottom: 1px solid #e0e0e0;
+    background-color: var(--forest-dark);
+    padding: 0;
+    border-bottom: none;
 }
 
 nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    background-color: #483C32;
+    background-color: transparent; /* header now owns the color, not the ul */
     display: flex;
 }
 
@@ -161,6 +162,10 @@ footer {
 
 .hero-left h1 {
     color: #ffffff;
+    font-family: 'Fraunces', serif;
+    font-size: 2.75rem;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
 }
 
 .hero-left .eyebrow {
@@ -175,7 +180,7 @@ footer {
 .hero-right {
     background-color: #EFEAD9;
     display: flex;
-    align-items: center;
+    align-items: stretch; /* was center */
     justify-content: center;
     flex-wrap: wrap;
     gap: 1.875rem;
@@ -192,6 +197,7 @@ footer {
     margin-bottom: 0.75rem;
 }
 
+
 .split-card {
     max-width: 220px;
     background-color: #ffffff;
@@ -199,7 +205,10 @@ footer {
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    overflow: hidden; /* keeps the overlapping bundle image contained */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* pushes buttons/text to line up at the bottom */
 }
 
 .split-card .eyebrow {
@@ -213,8 +222,8 @@ footer {
     height: auto;
     display: block;
     margin: 0 auto 15px;
-    border-radius: 4px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+    /* removed: border-radius and box-shadow — not needed on a transparent cutout */
 }
 
 /* --- Gift bundle photo with a book cover peeking out the corner --- */
@@ -222,7 +231,7 @@ footer {
     position: relative;
     width: 180px;
     height: 210px;
-    margin: 0 auto 35px; /* extra bottom space so the overlay doesn't crash into the heading */
+    margin: 0 auto 20px; /* reduced from 35px now that there's no shadow-box pushing things around */
 }
 
 .bundle-photo {
@@ -232,18 +241,17 @@ footer {
     width: 160px;
     height: auto;
     border-radius: 4px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* this one keeps box-shadow since it IS a full rectangular photo */
 }
 
 .bundle-book-overlay {
     position: absolute;
-    bottom: -5px;
-    right: -5px;
+    bottom: 0;
+    right: 0;
     width: 85px;
     height: auto;
-    border: 3px solid #ffffff;
-    border-radius: 3px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    /* removed: border and box-shadow — same reason */
 }
 
 /* --- This week's picks grid --- */
