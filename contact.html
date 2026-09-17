@@ -22,56 +22,68 @@
         </nav>
     </header>
 
-    <main>
+<main class="contact-page">
+    <h1>Get in Touch</h1>
+    <p class="contact-lead">Whether you're hunting for a specific title, dropping off a donation, or just want to say hello — we'd love to hear from you.</p>
+
+    <div class="contact-grid">
 
         <!-- 1. Direct Contact Details -->
         <section id="contact-info">
-            <h2>Get in Touch</h2>
+            <h2>Visit or Reach Us</h2>
             <address>
-                <strong>Little Woods Books</strong><br>
-                14 Hollowbrook Lane, Gardens<br>
-                Cape Town, 8001<br><br>
-                <strong>Email:</strong> <a href="mailto:hello@littlewoodsbooks.co.za">hello@littlewoodsbooks.co.za</a><br>
-                <strong>Phone:</strong> 021 555 0123
+                <div class="info-line">
+                    <span class="info-icon">📍</span>
+                    <span><strong>Little Woods Books</strong><br> 847 Willow Whisper Lane, <br>Cape Town, 6767</span>
+                </div>
+                <div class="info-line">
+                    <span class="info-icon">✉</span>
+                    <span><a href="mailto:hello@littlewoodsbooks.co.za">hello@littlewoodsbooks.co.za</a></span>
+                </div>
+                <div class="info-line">
+                    <span class="info-icon">☎</span>
+                    <span>021 555 6767</span>
+                </div>
             </address>
         </section>
 
         <!-- 2. Simple Reservation / Contact Form -->
-        <section id="contact-form">
+        <section id="contact-form" class="contact-form">
             <form action="#" method="post">
                 <fieldset>
                     <legend>Reserve a Book or Send a Query</legend>
-                    
+
                     <p>
-                        <label for="user-name">Your Name:</label>
+                        <label for="user-name">Your Name</label>
                         <input type="text" id="user-name" name="name" required>
                     </p>
-                    
+
                     <p>
-                        <label for="user-email">Email Address:</label>
+                        <label for="user-email">Email Address</label>
                         <input type="email" id="user-email" name="email" required>
                     </p>
-                    
+
                     <p>
-                        <label for="subject">Subject:</label>
+                        <label for="subject">Subject</label>
                         <select id="subject" name="subject">
                             <option value="general">General Inquiry</option>
                             <option value="reservation">Book Reservation</option>
                             <option value="donation">Book Donation</option>
                         </select>
                     </p>
-                    
+
                     <p>
-                        <label for="message">Message:</label>
+                        <label for="message">Message</label>
                         <textarea id="message" name="message" rows="5" placeholder="Tell us which book you are looking for..."></textarea>
                     </p>
-                    
+
                     <button type="submit">Submit Query</button>
                 </fieldset>
             </form>
         </section>
 
-    </main>
+    </div>
+</main>
 
     <footer>
         <p> &copy; 2026 Little Woods Books. All rights reserved.</p>
