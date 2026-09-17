@@ -42,30 +42,24 @@ header{
     border-bottom: 1px solid #e0e0e0;
 }
 
-nav{
-    float:right;
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #483C32 ;
+  display: flex;
 }
 
-nav ul{
-    list-style-type: none;
-    display: flex;
-    align-items: center;
+ul li a {
+  display: block;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
 }
 
-nav li {
-    display: inline-block;
-    margin-left: 25px;
+ul li a:hover {
+  background-color: var(--terracotta);
 }
-
-nav li:first-child{
-    margin-left: 0;
-}
-
-nav a.active{
-    font-weight: bold;
-    border-bottom: 2px solid var(--forest-green);
-}
-
 
 .search-container {
     margin: 20px 0;
@@ -122,7 +116,10 @@ footer{
     margin-top: 40px;
 }
 
-/*Index page*/
+/*--------------------------------
+        INDEX PAGE
+-----------------------------------
+*/
 
 .container{
     max-width: 1100px;
@@ -130,11 +127,47 @@ footer{
     padding: 0 20px;
 }
 
-.hero {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 60px 20px 20px;
+.hero-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 480px;
+}
+
+.hero-left {
+    background-color: var(--forest-green);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    padding: 60px 40px;
+}
+
+.hero-left h1 {
+    color: #ffffff;
+}
+
+.hero-left .eyebrow {
+    color: var(--terracotta);
+}
+
+.hero-left .hero-intro {
+    max-width: 400px;
+}
+
+.hero-right {
+    background-color: #EFEAD9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 40px 20px;
+}
+
+.hero-right .split-card {
+    max-width: 220px;
 }
 
 .eyebrow {
@@ -147,17 +180,63 @@ footer{
     margin-bottom: 12px;
 }
 
-.hero h1 {
-    font-size: 42px;
-    line-height: 1.2;
+/* Featured book and bundle set */
+
+/*3D look for book*/
+
+.book-3d {
+    position: relative;
+    width: 200px;
+    margin: 10px auto 20px;
 }
 
-.hero-intro {
-    margin-top: 16px;
-    font-size: 16px;
+.book-3d img {
+    width: 100%;
+    display: block;
+    box-shadow: -10px 4px 16px rgba(0,0,0,0.3);
+    transform: rotateY(-15deg);
+    border-radius: 2px 4px 4px 2px;
 }
 
-/* --- Featured book: the big poster image, right under the hero --- */
+.book-3d::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    right: -6px;
+    width: 8px;
+    background: repeating-linear-gradient(to bottom, #f4f0e6, #f4f0e6 2px, #e2dcc8 2px, #e2dcc8 3px);
+    transform: rotateY(-15deg);
+}
+
+/* 3d look for buundle */
+.bundle-stack {
+    position: relative;
+    width: 200px;
+    height: 260px;
+    margin: 10px auto 20px;
+}
+
+.bundle-book {
+    position: absolute;
+    width: 150px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    border-radius: 2px;
+}
+
+.bundle-book--back {
+    top: 10px;
+    left: 40px;
+    transform: rotate(6deg);
+    opacity: 0.9;
+}
+
+.bundle-book--front {
+    top: 0;
+    left: 10px;
+    transform: rotate(-6deg);
+}
+
 .featured-book {
     text-align: center;
 }
@@ -255,6 +334,60 @@ footer{
 
 .mat-card:nth-child(3n+3) { background-color: #EAE2D3; }
 .mat-card:nth-child(3n+3) figcaption { color: var(--dark-text); }
+
+/* -----------------------
+    END OF INDEX PAGE
+--------------------------
+*/
+
+/* -----------------------
+    CATALOGUE PAGE
+--------------------------
+*/
+
+
+
+/* -----------------------
+    END OF CATALOGUE PAGE
+--------------------------
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media screen and (max-width: 768px){
     nav{
