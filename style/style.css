@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+:root {
+    --forest-green: #2D5A27;
+    --terracotta: #C85A32;
+    --cream-bg: #FDFBF7;
+    --dark-text: #2B2B2B;
+    --font-heading: 'Georgia', serif;
+    --font-body: 'Arial', sans-serif;
+
+}
+
+body{
+    background-color: var(--cream-bg);
+    color: var(--dark-text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    color: var(--forest-green);
+    margin-bottom: 15px
+}
+
+a {
+    color: var(--terracotta);
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+header{
+    background-color: #ffffff;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+nav{
+    float:right;
+}
+
+nav ul{
+    list-style-type: none;
+}
+
+nav li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+nav a.active{
+    font-weight: bold;
+    border-bottom: 2px solid var(--forest-green);
+}
+
+.search-container {
+    margin: 20px 0;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px
+}
+
+.book-item{
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.bundle-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.featured-post{
+    background: #ffffff;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.blog-sidebar{
+    background: #f4efe9;
+    padding: 20px;
+}
+
+.contact-form fieldset{
+    border: 1px solid var(--forest-green);
+    padding: 20px;
+}
+
+.contact-form input,
+.contact-form textarea{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+footer{
+    clear: both;
+    text-align: center;
+    padding: 20px;
+    background-color: var(--forest-green);
+    color: #ffffff;
+    margin-top: 40px;
+}
+
+@media screen and (max-width: 768px){
+    nav{
+        float:none;
+        text-align: center;
+    }
+
+    nav li{
+        display: block;
+        margin: 10px 0;
+    }
+}
