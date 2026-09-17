@@ -169,6 +169,7 @@ footer {
 
 .hero-left .hero-intro {
     max-width: 400px;
+    color: rgba(255, 255, 255, 0.85); /* was inheriting dark text - unreadable on green */
 }
 
 .hero-right {
@@ -181,10 +182,6 @@ footer {
     padding: 2.5rem 1.25rem;
 }
 
-.hero-right .split-card {
-    max-width: 220px;
-}
-
 .eyebrow {
     display: block;
     font-size: 0.75rem;
@@ -195,148 +192,129 @@ footer {
     margin-bottom: 0.75rem;
 }
 
-/* --- 3D-look book (book of the week) --- */
-.book-3d {
-    position: relative;
-    width: 200px;
-    margin: 0.625rem auto 1.25rem;
+.split-card {
+    max-width: 220px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden; /* keeps the overlapping bundle image contained */
 }
 
-.book-3d img {
+.split-card .eyebrow {
+    color: var(--forest-green);
+}
+
+/* --- Flat featured book image (Book of the Week), no tilt --- */
+.featured-book-img {
     width: 100%;
+    max-width: 150px;
+    height: auto;
     display: block;
-    box-shadow: -10px 4px 16px rgba(0,0,0,0.3);
-    transform: rotateY(-15deg);
-    border-radius: 2px 4px 4px 2px;
+    margin: 0 auto 15px;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.book-3d::after {
-    content: "";
-    position: absolute;
-    top: 4px;
-    bottom: 4px;
-    right: -6px;
-    width: 8px;
-    background: repeating-linear-gradient(to bottom, #f4f0e6, #f4f0e6 2px, #e2dcc8 2px, #e2dcc8 3px);
-    transform: rotateY(-15deg);
-}
-
-/* --- 3D-look bundle (2 stacked books) --- */
+/* --- Gift bundle photo with a book cover peeking out the corner --- */
 .bundle-stack {
     position: relative;
-    width: 200px;
-    height: 260px;
-    margin: 0.625rem auto 1.25rem;
+    width: 180px;
+    height: 210px;
+    margin: 0 auto 35px; /* extra bottom space so the overlay doesn't crash into the heading */
 }
 
-.bundle-book {
+.bundle-photo {
     position: absolute;
-    width: 150px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-    border-radius: 2px;
-}
-
-.bundle-book--back {
-    top: 10px;
-    left: 40px;
-    transform: rotate(6deg);
-    opacity: 0.9;
-}
-
-.bundle-book--front {
     top: 0;
-    left: 10px;
-    transform: rotate(-6deg);
-}
-
-/* NOTE: check if these 3 are still used in index.html - leftovers
-   from the earlier "flanking picks" hero before .hero-split. Delete
-   if index.html doesn't reference them anymore. */
-.featured-book {
-    text-align: center;
-}
-
-.featured-section {
-    display: grid;
-    grid-template-columns: 1fr 260px 1fr;
-    gap: 1.875rem;
-    align-items: center;
-    max-width: 1000px;
-    margin: 1.25rem auto 3.75rem;
-    padding: 0 1.25rem;
-}
-
-.featured-flank {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
-
-.featured-flank .mat-card {
-    padding: 1rem 0.75rem 0.625rem;
-}
-
-.featured-flank .mat-card img {
-    max-width: 100px;
-}
-
-.featured-cover {
-    width: 240px;
+    left: 0;
+    width: 160px;
     height: auto;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-    transform: rotate(-3deg);
-    margin-bottom: 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.featured-info p {
-    margin: 0.75rem 0;
+.bundle-book-overlay {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    width: 85px;
+    height: auto;
+    border: 3px solid #ffffff;
+    border-radius: 3px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* --- This week's picks grid --- */
-.picks-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 1.5rem;
-    margin: 1.875rem 0 3.125rem;
+/* --- This week's other picks: horizontal scroll, catalogue-style cards --- */
+.picks-section {
+    margin: 3rem 0 4rem;
 }
 
-.mat-card {
+.picks-header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    padding: 1.875rem 1.25rem 1rem;
-    border-radius: 4px;
-    transition: transform 0.2s ease;
+    margin-bottom: 1.5rem;
 }
 
-.mat-card:hover {
+.picks-header h3 {
+    margin-bottom: 0;
+}
+
+.picks-scroll {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.75rem;
+}
+
+.pick-card {
+    flex: 0 0 170px;
+    scroll-snap-align: start;
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pick-card:hover {
     transform: translateY(-4px);
+    box-shadow: 0 10px 18px rgba(0,0,0,0.15);
 }
 
-.mat-card img {
+.pick-card img {
     width: 100%;
-    max-width: 140px;
-    height: auto;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    height: 160px;
+    object-fit: contain;
+    margin-bottom: 0.75rem;
 }
 
-.mat-card figcaption {
-    margin-top: 0.75rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+.pick-card .pick-title {
+    font-size: 0.875rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
 }
 
-.mat-card:nth-child(3n+1) { background-color: var(--forest-green); }
-.mat-card:nth-child(3n+1) figcaption { color: #ffffff; }
+.pick-card .pick-price {
+    font-size: 0.9375rem;
+    color: var(--terracotta);
+    font-weight: bold;
+}
 
-.mat-card:nth-child(3n+2) { background-color: var(--terracotta); }
-.mat-card:nth-child(3n+2) figcaption { color: #ffffff; }
+/* subtle scrollbar, not a big visual statement */
+.picks-scroll::-webkit-scrollbar {
+    height: 6px;
+}
 
-.mat-card:nth-child(3n+3) { background-color: #EAE2D3; }
-.mat-card:nth-child(3n+3) figcaption { color: var(--dark-text); }
-
+.picks-scroll::-webkit-scrollbar-thumb {
+    background: #d8cdb8;
+    border-radius: 3px;
+}
 /* ==========================================
    CATALOGUE PAGE
 ========================================== */
@@ -659,6 +637,206 @@ footer {
 
 .bundle-card button:active {
     transform: translateY(1px);
+}
+
+/* ==========================================
+   BLOG / REVIEWS PAGE
+========================================== */
+.featured-post {
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.post-tag {
+    display: inline-block;
+    background-color: var(--terracotta);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+}
+
+.post-meta {
+    font-size: 0.8125rem;
+    color: #8a8378;
+    font-style: italic;
+    margin-bottom: 1.25rem;
+}
+
+.post-content p:first-of-type::first-letter {
+    font-family: var(--font-heading);
+    font-size: 3.2rem;
+    color: var(--forest-green);
+    float: left;
+    line-height: 0.8;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+}
+
+.post-content p {
+    margin-bottom: 1rem;
+}
+
+/* --- Cute dashed divider instead of a plain <hr> --- */
+.section-divider {
+    border: none;
+    text-align: center;
+    margin: 3rem 0;
+    height: 1px;
+    background-color: #e0d8c8;
+    position: relative;
+}
+
+.section-divider::after {
+    content: "❧";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--cream-bg);
+    color: var(--terracotta);
+    font-size: 1.25rem;
+    padding: 0 1rem;
+}
+
+.favourites-section h2 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.favourites-intro {
+    text-align: center;
+    color: #6b6459;
+    font-size: 0.9375rem;
+    margin-bottom: 2.5rem;
+}
+
+/* --- Review cards: postcard/pinned-photo feel --- */
+.favourites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.review-card {
+    position: relative;
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    padding: 1rem 1rem 1.25rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.review-card:nth-child(odd) {
+    transform: rotate(-2deg);
+}
+
+.review-card:nth-child(even) {
+    transform: rotate(2deg);
+}
+
+.review-card:hover {
+    transform: rotate(0deg) translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+/* washi-tape corner accent */
+.review-card::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    width: 50px;
+    height: 20px;
+    background-color: var(--terracotta);
+    opacity: 0.85;
+    transform: rotate(-6deg);
+    border-radius: 2px;
+}
+
+.review-card:nth-child(3n+2)::before {
+    background-color: var(--forest-green);
+    left: auto;
+    right: 20px;
+    transform: rotate(6deg);
+}
+
+.review-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.875rem;
+    display: block;
+}
+
+.review-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.rating {
+    color: var(--terracotta);
+    letter-spacing: 2px;
+    margin-bottom: 0.625rem;
+    font-size: 0.9375rem;
+}
+
+.review-card p {
+    font-size: 0.875rem;
+}
+
+/* --- Newsletter box --- */
+.newsletter-box {
+    text-align: center;
+    background-color: #f4efe9;
+    border: 2px dashed var(--terracotta);
+    border-radius: 10px;
+    padding: 2.5rem 1.5rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.newsletter-box h3 {
+    margin-bottom: 0.5rem;
+}
+
+.newsletter-box p {
+    font-size: 0.9375rem;
+    color: #6b6459;
+    margin-bottom: 1.25rem;
+}
+
+.newsletter-box form {
+    display: flex;
+    gap: 0.625rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.newsletter-box input {
+    flex: 1 1 220px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d8cdb8;
+    border-radius: 20px;
+    font-family: var(--font-body);
+}
+
+.newsletter-box button {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--forest-green);
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.newsletter-box button:hover {
+    background-color: var(--terracotta);
 }
 
 /* ==========================================
