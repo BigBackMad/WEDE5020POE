@@ -1,9 +1,15 @@
+/* ============================
+   RESET
+============================ */
 * {
     margin: 0;
-    padding:0;
+    padding: 0;
     box-sizing: border-box;
 }
 
+/* ============================
+   ROOT VARIABLES
+============================ */
 :root {
     --forest-green: #2D5A27;
     --terracotta: #C85A32;
@@ -11,10 +17,12 @@
     --dark-text: #2B2B2B;
     --font-heading: 'Georgia', serif;
     --font-body: 'Arial', sans-serif;
-
 }
 
-body{
+/* ============================
+   BASE / TYPOGRAPHY
+============================ */
+body {
     background-color: var(--cream-bg);
     color: var(--dark-text);
     font-family: var(--font-body);
@@ -24,7 +32,7 @@ body{
 h1, h2, h3, h4 {
     font-family: var(--font-heading);
     color: var(--forest-green);
-    margin-bottom: 15px
+    margin-bottom: 0.9375rem;
 }
 
 a {
@@ -32,101 +40,108 @@ a {
     text-decoration: none;
 }
 
-a:hover{
+a:hover {
     text-decoration: underline;
 }
 
-header{
+/* keyboard-focus outlines, for anyone tabbing through instead of clicking */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--forest-green);
+    outline-offset: 2px;
+}
+
+/* ============================
+   HEADER + NAV
+============================ */
+header {
     background-color: #ffffff;
-    padding: 15px 20px;
+    padding: 0.9375rem 1.25rem;
     border-bottom: 1px solid #e0e0e0;
 }
 
 nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  background-color: #483C32;
-  display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #483C32;
+    display: flex;
 }
 
 nav ul li a {
-  display: block;
-  color: white;
-  padding: 14px 16px;
-  text-decoration: none;
+    display: block;
+    color: white;
+    padding: 0.875rem 1rem;
+    text-decoration: none;
 }
 
 nav ul li a:hover {
-  background-color: var(--terracotta);
+    background-color: var(--terracotta);
 }
 
-.search-container {
-    margin: 20px 0;
+/* ============================
+   SHARED / REUSABLE COMPONENTS
+   (bits used across more than one page)
+============================ */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
 }
 
-.book-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px
+.btn {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.625rem 1.25rem;
+    background-color: var(--terracotta);
+    color: #ffffff;
+    border-radius: 3px;
 }
 
-.book-item{
+.btn:hover {
+    text-decoration: none;
+    background: var(--forest-green);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.featured-post {
     background: #ffffff;
-    padding: 15px;
-    border-radius: 5px;
+    padding: 1.5625rem;
+    margin-bottom: 1.875rem;
 }
 
-.bundle-card {
-    background: #ffffff;
-    border: 1px solid #e0e0e0;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.featured-post{
-    background: #ffffff;
-    padding: 25px;
-    margin-bottom: 30px;
-}
-
-.blog-sidebar{
+.blog-sidebar {
     background: #f4efe9;
-    padding: 20px;
+    padding: 1.25rem;
 }
 
-.contact-form fieldset{
+.contact-form fieldset {
     border: 1px solid var(--forest-green);
-    padding: 20px;
+    padding: 1.25rem;
 }
 
 .contact-form input,
-.contact-form textarea{
+.contact-form textarea {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
+    padding: 0.625rem;
+    margin-top: 0.3125rem;
 }
 
-footer{
+footer {
     clear: both;
     text-align: center;
-    padding: 20px;
+    padding: 1.25rem;
     background-color: var(--forest-green);
     color: #ffffff;
-    margin-top: 40px;
+    margin-top: 2.5rem;
 }
 
-/*--------------------------------
-        INDEX PAGE
------------------------------------
-*/
-
-.container{
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
+/* ==========================================
+   INDEX PAGE
+========================================== */
 .hero-split {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -141,7 +156,7 @@ footer{
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 60px 40px;
+    padding: 3.75rem 2.5rem;
 }
 
 .hero-left h1 {
@@ -162,8 +177,8 @@ footer{
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 30px;
-    padding: 40px 20px;
+    gap: 1.875rem;
+    padding: 2.5rem 1.25rem;
 }
 
 .hero-right .split-card {
@@ -172,22 +187,19 @@ footer{
 
 .eyebrow {
     display: block;
-    font-size: 12px;
+    font-size: 0.75rem;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--terracotta);
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
 }
 
-/* Featured book and bundle set */
-
-/*3D look for book*/
-
+/* --- 3D-look book (book of the week) --- */
 .book-3d {
     position: relative;
     width: 200px;
-    margin: 10px auto 20px;
+    margin: 0.625rem auto 1.25rem;
 }
 
 .book-3d img {
@@ -209,12 +221,12 @@ footer{
     transform: rotateY(-15deg);
 }
 
-/* 3d look for buundle */
+/* --- 3D-look bundle (2 stacked books) --- */
 .bundle-stack {
     position: relative;
     width: 200px;
     height: 260px;
-    margin: 10px auto 20px;
+    margin: 0.625rem auto 1.25rem;
 }
 
 .bundle-book {
@@ -237,6 +249,9 @@ footer{
     transform: rotate(-6deg);
 }
 
+/* NOTE: check if these 3 are still used in index.html - leftovers
+   from the earlier "flanking picks" hero before .hero-split. Delete
+   if index.html doesn't reference them anymore. */
 .featured-book {
     text-align: center;
 }
@@ -244,21 +259,21 @@ footer{
 .featured-section {
     display: grid;
     grid-template-columns: 1fr 260px 1fr;
-    gap: 30px;
+    gap: 1.875rem;
     align-items: center;
     max-width: 1000px;
-    margin: 20px auto 60px;
-    padding: 0 20px;
+    margin: 1.25rem auto 3.75rem;
+    padding: 0 1.25rem;
 }
 
 .featured-flank {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .featured-flank .mat-card {
-    padding: 16px 12px 10px;
+    padding: 1rem 0.75rem 0.625rem;
 }
 
 .featured-flank .mat-card img {
@@ -270,32 +285,19 @@ footer{
     height: auto;
     box-shadow: 0 20px 40px rgba(0,0,0,0.25);
     transform: rotate(-3deg);
-    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
 }
 
 .featured-info p {
-    margin: 12px 0;
+    margin: 0.75rem 0;
 }
 
-.btn {
-    display:inline-block;
-    margin-top:12px;
-    padding:10px 20px;
-    background-color: var(--terracotta);
-    color: #ffffff;
-    border-radius: 3px;
-}
-
-.btn:hover {
-    text-decoration: none;
-    background: var(--forest-green);
-}
-
+/* --- This week's picks grid --- */
 .picks-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 24px;
-    margin: 30px 0 50px;
+    gap: 1.5rem;
+    margin: 1.875rem 0 3.125rem;
 }
 
 .mat-card {
@@ -303,7 +305,7 @@ footer{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 30px 20px 16px;
+    padding: 1.875rem 1.25rem 1rem;
     border-radius: 4px;
     transition: transform 0.2s ease;
 }
@@ -320,8 +322,8 @@ footer{
 }
 
 .mat-card figcaption {
-    margin-top: 12px;
-    font-size: 12px;
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
@@ -335,49 +337,30 @@ footer{
 .mat-card:nth-child(3n+3) { background-color: #EAE2D3; }
 .mat-card:nth-child(3n+3) figcaption { color: var(--dark-text); }
 
-/* -----------------------
-    END OF INDEX PAGE
---------------------------
-*/
-
-
-/* -----------------------
-    CATALOGUE PAGE
---------------------------
-*/
-
-/* --- Catalogue layout --- */
-.catalogue-wrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: 32px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px 60px;
-}
-
-/* --- Search bar --- */
+/* ==========================================
+   CATALOGUE PAGE
+========================================== */
 .search-container {
     max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
+    margin: 1.875rem auto;
+    padding: 0 1.25rem;
 }
 
 .search-container form {
     display: flex;
-    gap: 10px;
+    gap: 0.625rem;
 }
 
 .search-container input {
     flex: 1;
-    padding: 12px 16px;
+    padding: 0.75rem 1rem;
     border: 1px solid #d8cdb8;
     border-radius: 3px;
     font-family: var(--font-body);
 }
 
 .search-container button {
-    padding: 12px 24px;
+    padding: 0.75rem 1.5rem;
     background-color: var(--terracotta);
     color: #ffffff;
     border: none;
@@ -389,42 +372,55 @@ footer{
     background-color: var(--forest-green);
 }
 
+.search-container button:active {
+    transform: translateY(1px);
+}
+
+.catalogue-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.25rem 3.75rem;
+}
+
 /* --- Filter sidebar, shelf-styled --- */
 .filters {
     background-color: var(--forest-green);
     color: #ffffff;
     width: 260px;
     flex-shrink: 0;
-    padding: 28px 24px;
+    padding: 1.75rem 1.5rem;
     border-radius: 4px;
 }
 
 .filters h2 {
     color: #ffffff;
-    font-size: 20px;
+    font-size: 1.25rem;
     letter-spacing: 0.5px;
-    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
 }
 
 .filters h4 {
     color: var(--terracotta);
-    font-size: 12px;
+    font-size: 0.75rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    margin: 24px 0 12px;
+    margin: 1.5rem 0 0.75rem;
 }
 
 .filters select {
     width: 100%;
-    padding: 8px;
+    padding: 0.5rem;
     border-radius: 3px;
     border: none;
     font-family: var(--font-body);
 }
 
-/* --- One shelf row + its wooden ledge --- */
+/* one shelf row + its wooden ledge */
 .shelf {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 }
 
 .shelf-row {
@@ -439,7 +435,7 @@ footer{
     box-shadow: 0 6px 8px rgba(0,0,0,0.2);
 }
 
-/* --- Each spine: hidden checkbox + styled label --- */
+/* each spine: hidden checkbox + styled label doing the visual work */
 .spine-item {
     flex: 1;
     height: 100%;
@@ -461,7 +457,7 @@ footer{
     padding-bottom: 10px;
     writing-mode: vertical-rl;
     text-align: center;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -492,20 +488,18 @@ footer{
 .spine-item:nth-child(3n+2) label { background-color: #33513F; }
 .spine-item:nth-child(3n+3) label { background-color: #8C4A32; }
 
-.filters select {
-    width: 100%;
-    padding: 8px;
-    border-radius: 3px;
-    border: none;
-    font-family: var(--font-body);
-}
-
-/* --- Book cards --- */
+/* --- Book grid + cards --- */
 .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
     flex: 1;
 }
 
 .book-item {
+    background: #ffffff;
+    padding: 0.9375rem;
+    border-radius: 5px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -520,7 +514,7 @@ footer{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
     overflow: hidden;
     border-radius: 3px;
 }
@@ -532,39 +526,39 @@ footer{
 }
 
 .book-name {
-    font-size: 16px;
-    margin-bottom: 4px;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
 }
 
 .author {
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: normal;
     color: #6b6459;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
 }
 
 .book-details .condition {
     display: inline-block;
-    font-size: 11px;
+    font-size: 0.6875rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: var(--forest-green);
     background-color: #eae2d3;
-    padding: 3px 8px;
+    padding: 0.1875rem 0.5rem;
     border-radius: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
 }
 
 .book-details .price {
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: bold;
     color: var(--terracotta);
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
 }
 
 .book-details button {
     width: 100%;
-    padding: 10px;
+    padding: 0.625rem;
     background-color: var(--forest-green);
     color: #ffffff;
     border: none;
@@ -576,68 +570,115 @@ footer{
     background-color: var(--terracotta);
 }
 
+.book-details button:active {
+    transform: translateY(1px);
+}
+
+/* ==========================================
+   GIFT BUNDLES PAGE
+========================================== */
+.bundles-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.25rem 3.75rem;
+}
+
+.bundles-page .page-title {
+    text-align: center;
+    margin-top: 2.5rem;
+}
+
+.bundles-page .page-lead {
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+}
+
+.bundles-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.875rem;
+}
+
+.bundle-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 1.25rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bundle-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.bundle-card figure {
+    margin: 0 0 1rem;
+}
+
+.bundle-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 3px;
+    display: block;
+}
+
+.bundle-card h2 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.bundle-card p {
+    font-size: 0.875rem;
+    flex-grow: 1;
+    margin-bottom: 0.75rem;
+}
+
+.bundle-card .price {
+    font-size: 1.125rem;
+    font-weight: bold;
+    color: var(--terracotta);
+    margin-bottom: 0.75rem;
+}
+
+.bundle-card button {
+    padding: 0.625rem;
+    background-color: var(--forest-green);
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.bundle-card button:hover {
+    background-color: var(--terracotta);
+}
+
+.bundle-card button:active {
+    transform: translateY(1px);
+}
+
+/* ==========================================
+   RESPONSIVE
+   (one block, mobile breakpoint at 768px)
+========================================== */
 @media screen and (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    .hero-split {
+        grid-template-columns: 1fr;
+    }
+
     .catalogue-wrapper {
         flex-direction: column;
     }
 
     .filters {
         width: 100%;
-    }
-}
-
-
-
-/* -----------------------
-    END OF CATALOGUE PAGE
---------------------------
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media screen and (max-width: 768px){
-    nav{
-        float:none;
-        text-align: center;
-    }
-
-    nav li{
-        display: block;
-        margin: 10px 0;
     }
 }
