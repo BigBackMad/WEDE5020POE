@@ -1,6 +1,4 @@
-/* ============================
-   RESET
-============================ */
+
 * {
     margin: 0;
     padding: 0;
@@ -45,7 +43,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* keyboard-focus outlines, for anyone tabbing through instead of clicking */
+/* keyboard focus outlines  for anyone tabbing through */
 a:focus-visible,
 button:focus-visible {
     outline: 2px solid var(--forest-green);
@@ -257,7 +255,9 @@ footer {
 /* --- This week's picks grid --- */
 /* --- This week's other picks: horizontal scroll, catalogue-style cards --- */
 .picks-section {
-    margin: 3rem 0 4rem;
+    max-width: 1400px; /* wide ceiling so it doesn't stretch edge-to-edge on huge monitors, but reads as "full page" on normal screens */
+    margin: 3rem auto 4rem;
+    padding: 0 2.5rem;
 }
 
 .picks-header {
