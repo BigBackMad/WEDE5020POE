@@ -108,8 +108,7 @@ Both CSS Grid and Flexbox were used throughout, chosen based on the layout need:
 ## 10. Changelog
 
 - **Initial Setup:** Created the `little_woods_books` root folder with standard subdirectories for `css/`, `images/`, `js/`, and `documents/`.
-- **Asset Management:** Implemented nested image folders (`images/products/`, `images/interface/`, `images/blog/`) to handle a growing catalogue.
-- **HTML Boilerplate:** Created the basic HTML5 skeleton for all five pages, including mandatory `<!DOCTYPE html>`, `<head>`, and `<body>` tags.
+- **HTML:** Created the basic HTML5 skeleton for all five pages, including mandatory `<!DOCTYPE html>`, `<head>`, and `<body>` tags.
 - **Navigation Implementation:** Developed a site-wide navigation bar using `<nav>`, `<ul>`, and `<li>` elements.
 - **Page Structuring:** Added primary headings (`<h1>`) and defined the main content areas (`<main>`) for all core pages.
 - **Visual Layout:** Applied inline CSS to achieve a horizontal, top-right navigation bar layout for immediate structural testing.
