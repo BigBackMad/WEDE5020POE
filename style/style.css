@@ -1114,6 +1114,7 @@ footer {
 
 /* little glow when you click into an input, just so it feels a bit
    more responsive/alive instead of the default plain outline */
+       
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
