@@ -7,6 +7,8 @@
 
 /* ============================
    ROOT VARIABLES
+   colours + fonts for the whole site, picked terracotta + forest green
+   bc it felt like a cosy secondhand bookshop vibe rather than generic
 ============================ */
 :root {
     --forest-green: #2D5A27;
@@ -43,7 +45,9 @@ a:hover {
     text-decoration: underline;
 }
 
-/* keyboard focus outlines  for anyone tabbing through */
+/* this just makes sure if someone is tabbing through the page with
+   their keyboard instead of clicking, they can actually see where
+   they are - accessibility thing */
 a:focus-visible,
 button:focus-visible {
     outline: 2px solid var(--forest-green);
@@ -53,7 +57,7 @@ button:focus-visible {
 /* ============================
    HEADER + NAV
 ============================ */
-header {
+body > header {
     background-color: var(--forest-dark);
     padding: 0;
     border-bottom: none;
@@ -63,7 +67,7 @@ nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    background-color: transparent; /* header now owns the color, not the ul */
+    background-color: transparent;
     display: flex;
 }
 
@@ -80,8 +84,11 @@ nav ul li a:hover {
 
 /* ============================
    SHARED / REUSABLE COMPONENTS
-   (bits used across more than one page)
+   stuff i use across more than one page so i don't repeat myself
 ============================ */
+
+/* container = just stops text/content from stretching edge to edge on
+   big monitors. */
 .container {
     max-width: 1100px;
     margin: 0 auto;
@@ -141,6 +148,10 @@ footer {
 /* ==========================================
    INDEX PAGE
 ========================================== */
+
+/* HERO SECTION - the big intro bit right at the top of the homepage.
+   split into 2 columns using grid: left side is just text on a green
+   background, right side is the book of the week + gift bundle cards. */
 .hero-split {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -158,6 +169,8 @@ footer {
     padding: 3.75rem 2.5rem;
 }
 
+/* using a nicer serif font just for this heading so it actually stands
+   out instead of blending in with the regular georgia everywhere else */
 .hero-left h1 {
     color: #ffffff;
     font-family: 'Fraunces', serif;
@@ -166,25 +179,23 @@ footer {
     letter-spacing: 0.01em;
 }
 
-.hero-left .eyebrow {
-    color: var(--terracotta);
-}
-
 .hero-left .hero-intro {
     max-width: 400px;
-    color: rgba(255, 255, 255, 0.85); /* was inheriting dark text - unreadable on green */
+    color: rgba(255, 255, 255, 0.85); /* was inheriting the dark body text colour before - unreadable on green, oops */
 }
 
 .hero-right {
     background-color: #EFEAD9;
     display: flex;
-    align-items: stretch; /* was center */
+    align-items: stretch;
     justify-content: center;
     flex-wrap: wrap;
     gap: 1.875rem;
     padding: 2.5rem 1.25rem;
 }
 
+/* "eyebrow" - mall caps label above a big
+   heading.  a tiny tagline that sits above the title */
 .eyebrow {
     display: block;
     font-size: 0.75rem;
@@ -194,7 +205,6 @@ footer {
     font-weight: bold;
     margin-bottom: 0.75rem;
 }
-
 
 .split-card {
     max-width: 220px;
@@ -206,56 +216,52 @@ footer {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* pushes buttons/text to line up at the bottom */
+    justify-content: space-between; /* so both cards line up even if one has more text */
 }
 
-.split-card .eyebrow {
-    color: var(--forest-green);
-}
-
-/* --- Flat featured book image (Book of the Week), no tilt --- */
+/* --- Book of the week image, flat, no rotation --- */
 .featured-book-img {
     width: 100%;
-    max-width: 150px;
+    max-width: 170px;
     height: auto;
     display: block;
     margin: 0 auto 15px;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
-    /* removed: border-radius and box-shadow — not needed on a transparent cutout */
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25)); /* using drop-shadow not box-shadow bc the image has a transparent background - box-shadow would draw a weird rectangle around the invisible bit */
 }
 
-/* --- Gift bundle photo with a book cover peeking out the corner --- */
+/* --- Gift bundle photo with a book cover peeking out the corner ---
+   basically overlapping 2 images so it looks like the book is
+   sitting on top of/inside the bundle photo */
 .bundle-stack {
     position: relative;
     width: 180px;
     height: 210px;
-    margin: 0 auto 20px; /* reduced from 35px now that there's no shadow-box pushing things around */
+    margin: 0 auto 20px;
 }
 
 .bundle-photo {
     position: absolute;
     top: 0;
     left: 0;
-    width: 160px;
+    width: 170px;
     height: auto;
     border-radius: 4px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* this one keeps box-shadow since it IS a full rectangular photo */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* this one keeps box-shadow bc its an actual full rectangle photo, not a transparent cutout */
 }
 
 .bundle-book-overlay {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 85px;
+    width: 120px;
     height: auto;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-    /* removed: border and box-shadow — same reason */
 }
 
-/* --- This week's picks grid --- */
-/* --- This week's other picks: horizontal scroll, catalogue-style cards --- */
+/* --- This week's other picks: horizontal scroll row, kinda like a
+   little carousel  --- */
 .picks-section {
-    max-width: 1400px; /* wide ceiling so it doesn't stretch edge-to-edge on huge monitors, but reads as "full page" on normal screens */
+    max-width: 1400px;
     margin: 3rem auto 4rem;
     padding: 0 2.5rem;
 }
@@ -275,7 +281,7 @@ footer {
     display: flex;
     gap: 1.25rem;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x mandatory; /* makes it "snap" to each card instead of stopping mid-book when you scroll */
     padding-bottom: 0.75rem;
 }
 
@@ -314,7 +320,8 @@ footer {
     font-weight: bold;
 }
 
-/* subtle scrollbar, not a big visual statement */
+/* made the scrollbar smaller/subtler, didn't want a big chunky
+   default scrollbar ruining the vibe */
 .picks-scroll::-webkit-scrollbar {
     height: 6px;
 }
@@ -323,6 +330,7 @@ footer {
     background: #d8cdb8;
     border-radius: 3px;
 }
+
 /* ==========================================
    CATALOGUE PAGE
 ========================================== */
@@ -371,7 +379,9 @@ footer {
     padding: 0 1.25rem 3.75rem;
 }
 
-/* --- Filter sidebar, shelf-styled --- */
+/* --- Filter sidebar, made it look like a mini bookshelf ---
+   the genre/condition checkboxes are hidden and styled as little
+   book spines instead  */
 .filters {
     background-color: var(--forest-green);
     color: #ffffff;
@@ -404,7 +414,7 @@ footer {
     font-family: var(--font-body);
 }
 
-/* one shelf row + its wooden ledge */
+/* one shelf row + the wooden ledge underneath it */
 .shelf {
     margin-bottom: 1.25rem;
 }
@@ -421,7 +431,9 @@ footer {
     box-shadow: 0 6px 8px rgba(0,0,0,0.2);
 }
 
-/* each spine: hidden checkbox + styled label doing the visual work */
+/* each "spine" is actually a checkbox that's invisible + a label
+   styled to look like a book. clicking the label ticks the checkbox
+   underneath it, so the filtering js still works normally */
 .spine-item {
     flex: 1;
     height: 100%;
@@ -441,7 +453,7 @@ footer {
     justify-content: center;
     height: 100%;
     padding-bottom: 10px;
-    writing-mode: vertical-rl;
+    writing-mode: vertical-rl; /* this is what makes the text run sideways like an actual spine */
     text-align: center;
     font-size: 0.6875rem;
     font-weight: 600;
@@ -619,7 +631,7 @@ footer {
 
 .bundle-card p {
     font-size: 0.875rem;
-    flex-grow: 1;
+    flex-grow: 1; /* pushes price + button down so they line up across all the cards even when the description text is a different length */
     margin-bottom: 0.75rem;
 }
 
@@ -675,6 +687,7 @@ footer {
     margin-bottom: 1.25rem;
 }
 
+/* this makes the first letter of the first paragraph big */
 .post-content p:first-of-type::first-letter {
     font-family: var(--font-heading);
     font-size: 3.2rem;
@@ -689,7 +702,8 @@ footer {
     margin-bottom: 1rem;
 }
 
-/* --- Cute dashed divider instead of a plain <hr> --- */
+/* --- little divider between sections, used a symbol instead of a
+   plain boring line --- */
 .section-divider {
     border: none;
     text-align: center;
@@ -723,7 +737,8 @@ footer {
     margin-bottom: 2.5rem;
 }
 
-/* --- Review cards: postcard/pinned-photo feel --- */
+/* --- review cards styled kinda like postcards pinned to a board,
+   each one tilts slightly and straightens up on hover --- */
 .favourites-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -753,7 +768,8 @@ footer {
     box-shadow: 0 12px 24px rgba(0,0,0,0.15);
 }
 
-/* washi-tape corner accent */
+/* little tape strip in the corner, just a coloured rectangle
+   rotated a bit so it looks like tape sticking the card down */
 .review-card::before {
     content: "";
     position: absolute;
@@ -849,16 +865,17 @@ footer {
 
 /* ==========================================
    ABOUT PAGE
+   added some soft blurry circles in the background just for a bit
+   of decoration, low opacity so they don't distract from the text
 ========================================== */
 .about-page {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 1.25rem 3.75rem;
     position: relative;
-    overflow: hidden; /* keeps decorative shapes from spilling past the page edge */
+    overflow: hidden; /* stops the circles poking out past the edge of the page */
 }
 
-/* soft background shapes, purely decorative */
 .about-page::before,
 .about-page::after {
     content: "";
@@ -884,7 +901,7 @@ footer {
     left: -140px;
 }
 
-/* --- Hero: photo + opening text side by side --- */
+/* --- Hero: photo on one side, opening text on the other --- */
 .about-hero {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -912,19 +929,9 @@ footer {
     display: block;
 }
 
-/* placeholder styling, in case the image isn't added yet */
-.about-photo.placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #EFEAD9;
-    color: #a89f8c;
-    font-size: 0.875rem;
-    text-align: center;
-    padding: 1.5rem;
-}
 
-/* --- Rest of the story, narrower column for easy reading --- */
+/* keeping the main story text narrower so its actually comfy to
+   read instead of stretching all the way across the page */
 .shop-story {
     max-width: 640px;
     margin: 0 auto;
@@ -934,7 +941,8 @@ footer {
     margin-bottom: 1.25rem;
 }
 
-/* --- Pulled quote, breaks up the text --- */
+/* own little quote box
+   so it breaks up the wall of text a bit */
 .pull-quote {
     max-width: 640px;
     margin: 2.5rem auto;
@@ -967,19 +975,10 @@ footer {
     box-shadow: 0 10px 24px rgba(0,0,0,0.12);
 }
 
-/* --- Responsive --- */
-@media screen and (max-width: 768px) {
-    .about-hero {
-        grid-template-columns: 1fr;
-    }
-
-    .about-photo {
-        height: 240px;
-    }
-}
-
 /* ==========================================
    CONTACT PAGE
+   same background circle idea as the about page, just swapped which
+   colour goes where so it doesn't look identical
 ========================================== */
 .contact-page {
     max-width: 1000px;
@@ -989,7 +988,6 @@ footer {
     overflow: hidden;
 }
 
-/* soft background shapes, same device as the About page */
 .contact-page::before,
 .contact-page::after {
     content: "";
@@ -1034,7 +1032,7 @@ footer {
     align-items: start;
 }
 
-/* --- Info card --- */
+/* --- Info card, dark green so it contrasts against the white form --- */
 #contact-info {
     background-color: var(--forest-green);
     color: #ffffff;
@@ -1079,7 +1077,7 @@ footer {
 }
 
 .contact-form fieldset {
-    border: none;
+    border: none; /* not using the border here anymore bc the whole card already has its own shadow/border - looked like a box inside a box otherwise */
     padding: 0;
 }
 
@@ -1114,6 +1112,8 @@ footer {
     background-color: #fdfbf7;
 }
 
+/* little glow when you click into an input, just so it feels a bit
+   more responsive/alive instead of the default plain outline */
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
@@ -1144,17 +1144,34 @@ footer {
     transform: translateY(1px);
 }
 
-/* --- Responsive --- */
-@media screen and (max-width: 768px) {
+/* ==========================================
+   RESPONSIVE
+   two breakpoints - one for tablets/smaller laptops, one for phones.
+   tablet just shrinks things down a bit, phone stacks everything
+   into a single column so it doesn't look squished
+========================================== */
+@media screen and (max-width: 1024px) {
+    .hero-left h1 {
+        font-size: 2.2rem;
+    }
+
+    .catalogue-wrapper {
+        gap: 1.25rem;
+    }
+
+    .filters {
+        width: 220px;
+    }
+
     .contact-grid {
-        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .picks-section {
+        padding: 0 1.5rem;
     }
 }
 
-/* ==========================================
-   RESPONSIVE
-   (one block, mobile breakpoint at 768px)
-========================================== */
 @media screen and (max-width: 768px) {
     nav ul {
         flex-direction: column;
@@ -1170,5 +1187,17 @@ footer {
 
     .filters {
         width: 100%;
+    }
+
+    .about-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .about-photo {
+        height: 240px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
     }
 }
