@@ -1,8 +1,21 @@
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* every image is now capped at the width of whatever box it's sitting in,
+   and keeps its proportions. */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* wrapper so the browser can pick the webp version.
+   display: contents makes the wrapper "disappear" for layout so none of
+   my image positioning/sizing rules get messed with */
+picture {
+    display: contents;
 }
 
 /* ============================
@@ -35,6 +48,15 @@ h1, h2, h3, h4 {
     color: var(--forest-green);
     margin-bottom: 0.9375rem;
 }
+
+/* heading sizes - clamp(smallest, preferred, biggest) lets the text
+   shrink on its own as the screen gets smaller instead of staying
+   desktop-size and wrapping onto 4 lines on a phone. found this trick
+   when i was reading about relative units */
+h1 { font-size: clamp(1.6rem, 5vw, 2rem); line-height: 1.2; }
+h2 { font-size: clamp(1.25rem, 3.5vw, 1.5rem); line-height: 1.25; }
+h3 { font-size: clamp(1.05rem, 3vw, 1.17rem); }
+h4 { font-size: 1rem; }
 
 a {
     color: var(--terracotta);
@@ -971,6 +993,9 @@ footer {
 }
 
 .map-section iframe {
+    width: 100%;
+    height: 300px;
+    border: 0; /* moved here from an inline style + the old frameborder attribute */
     border-radius: 10px;
     box-shadow: 0 10px 24px rgba(0,0,0,0.12);
 }
@@ -1147,13 +1172,19 @@ footer {
 
 /* ==========================================
    RESPONSIVE
-   two breakpoints - one for tablets/smaller laptops, one for phones.
-   tablet just shrinks things down a bit, phone stacks everything
-   into a single column so it doesn't look squished
+   three breakpoints now - tablet (1024), phone (768) and small phone (480).
+   tablet shrinks stuff a bit, phone stacks everything into one column,
+   small phone tightens the text + spacing even more.
+   also added proper text size changes this time, before it was only
+   the hero heading that changed and everything else stayed the same
 ========================================== */
 @media screen and (max-width: 1024px) {
     .hero-left h1 {
         font-size: 2.2rem;
+    }
+
+    .hero-left {
+        padding: 3rem 2rem;
     }
 
     .catalogue-wrapper {
@@ -1170,6 +1201,10 @@ footer {
 
     .picks-section {
         padding: 0 1.5rem;
+    }
+
+    .pull-quote p {
+        font-size: 1.15rem;
     }
 }
 
@@ -1200,5 +1235,97 @@ footer {
 
     .contact-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* text + spacing on phones */
+    body {
+        font-size: 0.9375rem;
+    }
+
+    .hero-left {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .hero-left h1 {
+        font-size: 2rem;
+    }
+
+    .picks-section {
+        padding: 0 1rem;
+    }
+
+    .picks-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .contact-lead,
+    .page-lead,
+    .favourites-intro {
+        font-size: 0.9375rem;
+    }
+
+    #contact-info,
+    #contact-form {
+        padding: 1.5rem;
+    }
+
+    .post-content p:first-of-type::first-letter {
+        font-size: 2.6rem;
+    }
+
+    .pull-quote {
+        padding: 1.25rem 1.5rem;
+    }
+
+    .pull-quote p {
+        font-size: 1.05rem;
+    }
+
+    /* less tilt on the review cards so they don't poke off the side of a small screen */
+    .review-card:nth-child(odd) {
+        transform: rotate(-1deg);
+    }
+
+    .review-card:nth-child(even) {
+        transform: rotate(1deg);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 0.9rem;
+    }
+
+    .hero-left h1 {
+        font-size: 1.75rem;
+    }
+
+    .eyebrow {
+        font-size: 0.7rem;
+        letter-spacing: 1.5px;
+    }
+
+    .split-card {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .btn {
+        display: block;
+        text-align: center;
+    }
+
+    .filters {
+        padding: 1.25rem 1rem;
+    }
+
+    .newsletter-box {
+        padding: 2rem 1rem;
+    }
+
+    nav ul li a {
+        padding: 0.75rem 1rem;
     }
 }
