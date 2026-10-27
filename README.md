@@ -1,4 +1,4 @@
-# WEDE5020POE-PART-1
+# WEDE5020POE — Little Woods Books (Parts 1 & 2)
 
 ## 1. Project Title
 Little Woods Books
@@ -48,11 +48,12 @@ Part 1 of this project focuses on Planning and Design. It establishes the struct
 ## 8. Sitemap
 The website structure follows a logical hierarchy to ensure ease of navigation:
 
-- **Home** (`index.html`): Featured "Top 10" lists and introduction.
+- **Home** (`index.html`): Introduction, "Book of the Week" with its matching gift bundle, and a scrolling row of trending picks.
 - **Catalogue** (`catalogue.html`): The main content area with a searchable book grid and filter sidebar.
 - **Gift Bundles** (`bundles.html`): Curated "book + gift" sets with clear descriptions.
 - **Blog/Reviews** (`blog.html`): Owner-led "Highlight of the Week," reading lists, and new releases.
-- **About Us/Contact** (`about.html`): The shop's mission story, physical location map, and reservation/contact forms.
+- **About Us** (`about.html`): The shop's mission story, shop photo, and location map.
+- **Contact** (`contact.html`): Shop contact details and the reservation/query form.
 
 ## 9. Part 2 Details
 Part 2 of this project focuses on Development — specifically, translating the Part 1 wireframes and style guide into a fully styled CSS build across all six pages. The visual identity centres on a forest-green and terracotta colour palette against a warm cream background, with a recurring "bookshelf" motif used to tie the site's browsing experience back to the physical, in-store feel of a secondhand bookshop. All styling was implemented in a single external stylesheet (`style.css`), using CSS custom properties (variables) for colour and font consistency across pages.
@@ -103,11 +104,40 @@ Both CSS Grid and Flexbox were used throughout, chosen based on the layout need:
 ### 9.4 Responsive Design
 - Font sizes and internal spacing (margins, padding) were converted from fixed `px` values to `rem` units so they scale relative to the user's base font size rather than staying fixed regardless of accessibility settings.
 - Percentage-based widths (`%`) and `minmax()`/`auto-fit`/`auto-fill` grid functions were used throughout so grids and images resize fluidly rather than requiring separate fixed layouts.
-- Two media query breakpoints were implemented: **1024px** (tablet-range devices, adjusting spacing and sidebar width) and **768px** (mobile, collapsing multi-column layouts to a single column).
+- Three media query breakpoints were implemented: **1024px** (tablet-range devices, adjusting spacing, sidebar width and the hero heading), **768px** (mobile, collapsing multi-column layouts to a single column and reducing body text, quote and drop-cap sizes) and **480px** (small phones, tightening text, buttons and card widths further).
+- A global `img { max-width: 100%; height: auto; }` rule stops any image from overflowing its container.
+- Responsive images: every image is wrapped in a `<picture>` element with a WebP `<source>` using `srcset` (width descriptors) and `sizes`, with the original file kept as the fallback `<img>`. Smaller and larger WebP versions of each image (e.g. `verity-250w.webp`, `verity-500w.webp`) mean small screens download far less data than the original full-size PNGs. Images below the fold use `loading="lazy"`.
+- Typography uses `clamp()` for fluid heading sizes (`h1`–`h3`), plus explicit body text, hero heading, pull-quote and drop-cap adjustments at each breakpoint.
+
+### 9.5 Project Structure
+```
+WEDE5020POE/
+├── index.html
+├── catalogue.html
+├── bundles.html
+├── blog.html
+├── about.html
+├── contact.html
+├── README.md
+├── style/
+│   └── style.css
+└── images/
+    ├── About/            (shop photo)
+    ├── products/         (book covers + gift bundle photos)
+    └── *.jpg             (homepage book covers)
+    (each image also has -250w/-500w or -400w/-800w .webp versions beside it)
+```
+
+### 9.6 Validation and Fixes After Feedback
+- Removed a stray closing `</main>` and trailing `>` in `index.html`, and wrapped the homepage content in a proper `<main>`.
+- Removed a duplicate nested `<main>` in `bundles.html`.
+- Replaced the placeholder Google Maps URL in `about.html` with a working embed, added a `title` for screen readers, and moved the iframe border styling into the stylesheet.
+- Replaced the generic "Actual photo of book title" alt text in the catalogue with each book's real title.
+- Corrected the folder structure in this README so it matches the repository (`style/`, not `css/`).
 
 ## 10. Changelog
 
-- **Initial Setup:** Created the `little_woods_books` root folder with standard subdirectories for `css/`, `images/`, `js/`, and `documents/`.
+- **Initial Setup:** Created the project root folder with a `style/` folder for the stylesheet and an `images/` folder (with `products/` and `About/` subfolders) for site assets.
 - **HTML:** Created the basic HTML5 skeleton for all five pages, including mandatory `<!DOCTYPE html>`, `<head>`, and `<body>` tags.
 - **Navigation Implementation:** Developed a site-wide navigation bar using `<nav>`, `<ul>`, and `<li>` elements.
 - **Page Structuring:** Added primary headings (`<h1>`) and defined the main content areas (`<main>`) for all core pages.
@@ -119,6 +149,7 @@ Both CSS Grid and Flexbox were used throughout, chosen based on the layout need:
 - **Blog Styling:** Added drop-cap styling, postcard-style review cards, and a decorative section divider.
 - **About & Contact Styling:** Built two-column hero/grid layouts with decorative background elements and accessible form focus states.
 - **Responsive Pass:** Consolidated and expanded media queries to include both tablet (1024px) and mobile (768px) breakpoints across all pages.
+- **Feedback Fixes (Part 2):** Fixed the HTML structural errors (stray `</main>`, duplicate `<main>`, placeholder map URL), added a global responsive image rule, `<picture>`/`srcset`/`sizes` with WebP versions of all images, fluid typography with a third 480px breakpoint, real catalogue alt text, and corrected the README folder structure.
 - **Bug Fixes:** Resolved duplicate/conflicting CSS selectors (nav list styling leaking into other page elements, duplicate `.search-container` and `header` rules), corrected `box-shadow` artefacts on transparent PNG images by switching to `filter: drop-shadow()`, and removed an unintended hover transform affecting image sizing.
 
 ## 11. References
