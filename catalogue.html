@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalogue | Little Woods Books</title>
     <link rel="stylesheet" href="style/style.css">
+    <script src="js/script.js" defer></script>
 </head>
 <body>
-
 
     <header>
         <nav>
             <ul>
-              <li><a href="index.html">Home</a></li>
-               <li><a href="catalogue.html">Catalogue</a></li>
-               <li><a href="bundles.html">Gift Bundles</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalogue.html">Catalogue</a></li>
+                <li><a href="bundles.html">Gift Bundles</a></li>
                 <li><a href="blog.html">Blog/Reviews</a></li>
-               <li><a href="about.html">About Us</a></li>
-               <li><a href="contact.html">Contact</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -26,79 +26,101 @@
 
     <!-- 1. Search Bar (easier for consumers) -->
     <section class="search-container">
-        <form action="#" method="get">
-            <input type="text" placeholder="Search by title, author, or ISBN..." name="search">
+        <form id="search-form" action="#" method="get">
+            <input type="text" id="search-input" placeholder="Search by title or author..." name="search">
             <button type="submit">Search</button>
         </form>
     </section>
 
+    <!-- Results toolbar: count, sort, clear -->
+    <section class="catalogue-toolbar">
+        <p id="results-count" aria-live="polite"></p>
+        <label for="sort-select">Sort by:</label>
+        <select id="sort-select">
+            <option value="default">Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="title-az">Title: A-Z</option>
+        </select>
+        <button type="button" id="clear-filters-btn">Clear Filters</button>
+    </section>
+
+    <div id="no-results" style="display: none;">
+        <p>No books match your search. Try clearing a few filters.</p>
+    </div>
+
     <div class="catalogue-wrapper">
         <!-- 2. Filter Sidebar will pop out like a bookshelf (Secondary Navigation) -->
-<aside class="filters">
-    <h2>Browse the Shelf</h2>
+        <aside class="filters">
+            <h2>Browse the Shelf</h2>
 
-    <h4>Genre</h4>
-    <div class="shelf">
-        <ul class="shelf-row">
-            <li class="spine-item">
-                <input type="checkbox" id="genre-romance" class="genre-filter" value="romance">
-                <label for="genre-romance">Romance</label>
-            </li>
-            <li class="spine-item">
-                <input type="checkbox" id="genre-thriller" class="genre-filter" value="thriller">
-                <label for="genre-thriller">Thrillers</label>
-            </li>
-            <li class="spine-item">
-                <input type="checkbox" id="genre-fiction" class="genre-filter" value="fiction">
-                <label for="genre-fiction">Fiction</label>
-            </li>
-        </ul>
-    </div>
-    <div class="shelf">
-        <ul class="shelf-row">
-            <li class="spine-item">
-                <input type="checkbox" id="genre-fantasy" class="genre-filter" value="fantasy">
-                <label for="genre-fantasy">Fantasy</label>
-            </li>
-            <li class="spine-item">
-                <input type="checkbox" id="genre-nonfiction" class="genre-filter" value="non-fiction">
-                <label for="genre-nonfiction">Non-Fiction</label>
-            </li>
-        </ul>
-    </div>
+            <h4>Genre</h4>
+            <div class="shelf">
+                <ul class="shelf-row">
+                    <li class="spine-item">
+                        <input type="checkbox" id="genre-romance" class="genre-filter" value="romance">
+                        <label for="genre-romance">Romance</label>
+                    </li>
+                    <li class="spine-item">
+                        <input type="checkbox" id="genre-thriller" class="genre-filter" value="thriller">
+                        <label for="genre-thriller">Thrillers</label>
+                    </li>
+                    <li class="spine-item">
+                        <input type="checkbox" id="genre-fiction" class="genre-filter" value="fiction">
+                        <label for="genre-fiction">Fiction</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="shelf">
+                <ul class="shelf-row">
+                    <li class="spine-item">
+                        <input type="checkbox" id="genre-fantasy" class="genre-filter" value="fantasy">
+                        <label for="genre-fantasy">Fantasy</label>
+                    </li>
+                    <li class="spine-item">
+                        <input type="checkbox" id="genre-nonfiction" class="genre-filter" value="non-fiction">
+                        <label for="genre-nonfiction">Non-Fiction</label>
+                    </li>
+                </ul>
+            </div>
 
-    <h4>Condition</h4>
-    <div class="shelf">
-        <ul class="shelf-row">
-            <li class="spine-item">
-                <input type="checkbox" id="cond-new" class="condition-filter" value="new">
-                <label for="cond-new">New</label>
-            </li>
-            <li class="spine-item">
-                <input type="checkbox" id="cond-used" class="condition-filter" value="used">
-                <label for="cond-used">Used</label>
-            </li>
-            <li class="spine-item">
-                <input type="checkbox" id="cond-likenew" class="condition-filter" value="like new">
-                <label for="cond-likenew">Like New</label>
-            </li>
-        </ul>
-    </div>
+            <h4>Condition</h4>
+            <div class="shelf">
+                <ul class="shelf-row">
+                    <li class="spine-item">
+                        <input type="checkbox" id="cond-new" class="condition-filter" value="new">
+                        <label for="cond-new">New</label>
+                    </li>
+                    <li class="spine-item">
+                        <input type="checkbox" id="cond-used" class="condition-filter" value="used">
+                        <label for="cond-used">Used</label>
+                    </li>
+                    <li class="spine-item">
+                        <input type="checkbox" id="cond-likenew" class="condition-filter" value="like-new">
+                        <label for="cond-likenew">Like New</label>
+                    </li>
+                </ul>
+            </div>
 
-    <h4>Price Range</h4>
-    <select name="price-filter">
-        <option value="all">All Prices</option>
-        <option value="95">R95 - R120</option>
-        <option value="149">R121 - R149</option>
-        <option value="new books">above R150 (new)</option>
-    </select>
-</aside>
+            <h4>Price Range</h4>
+            <select name="price-filter" id="price-filter">
+                <option value="all">All Prices</option>
+                <option value="under-100">Under R100</option>
+                <option value="100-149">R100 - R149</option>
+                <option value="150-249">R150 - R249</option>
+                <option value="250-plus">R250 and up</option>
+            </select>
+        </aside>
 
         <!-- 3. All books (Catalogue main content) -->
         <section class="book-grid">
 
-            <!-- Original Books -->
-            <article class="book-item" data-genre="fiction" data-condition="used" data-price="95">
+            <article class="book-item"
+                     data-title="The Great Gatsby"
+                     data-author="F. Scott Fitzgerald"
+                     data-genre="fiction"
+                     data-condition="used"
+                     data-price="95">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/greatgatsby-250w.webp 250w, images/products/greatgatsby-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/greatgatsby.jpg" alt="The Great Gatsby book cover" loading="lazy"></picture>
                 </div>
@@ -111,7 +133,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="fantasy romance" data-condition="new" data-price="350">
+            <article class="book-item"
+                     data-title="A Court of Thorns and Roses"
+                     data-author="Sarah J. Maas"
+                     data-genre="fantasy romance"
+                     data-condition="new"
+                     data-price="350">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/acotar-250w.webp 250w, images/products/acotar-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/acotar.jpg" alt="A Court of Thorns and Roses book cover" loading="lazy"></picture>
                 </div>
@@ -124,7 +151,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance thriller" data-condition="like new" data-price="135">
+            <article class="book-item"
+                     data-title="Verity"
+                     data-author="Colleen Hoover"
+                     data-genre="romance thriller"
+                     data-condition="like-new"
+                     data-price="135">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/verity-250w.webp 250w, images/products/verity-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/verity.jpg" alt="Verity book cover" loading="lazy"></picture>
                 </div>
@@ -137,7 +169,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance" data-condition="new" data-price="260">
+            <article class="book-item"
+                     data-title="Ugly Love"
+                     data-author="Colleen Hoover"
+                     data-genre="romance"
+                     data-condition="new"
+                     data-price="260">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/uglylove-250w.webp 250w, images/products/uglylove-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/uglylove.jpg" alt="Ugly Love book cover" loading="lazy"></picture>
                 </div>
@@ -148,14 +185,19 @@
                     <p class="price">R260.00</p>
                     <button type="button">See the Book</button>
                 </div>
-            </article>     
-            
-            <article class="book-item" data-genre="fantasy romance" data-condition="used" data-price="90">
+            </article>
+
+            <article class="book-item"
+                     data-title="Fourth Wing"
+                     data-author="Rebecca Yarros"
+                     data-genre="fantasy romance"
+                     data-condition="used"
+                     data-price="90">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/fourthwing-250w.webp 250w, images/products/fourthwing-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/fourthwing.jpg" alt="Fourth Wing book cover" loading="lazy"></picture>
                 </div>
                 <div class="book-details">
-                    <h2 class="book-name"> Fourth Wing</h2>
+                    <h2 class="book-name">Fourth Wing</h2>
                     <h3 class="author">by Rebecca Yarros</h3>
                     <p class="condition">Condition: Used</p>
                     <p class="price">R90.00</p>
@@ -163,8 +205,12 @@
                 </div>
             </article>
 
-            <!-- Requested Romance/Contemporary Titles -->
-            <article class="book-item" data-genre="romance" data-condition="used" data-price="110">
+            <article class="book-item"
+                     data-title="Archer's Voice"
+                     data-author="Mia Sheridan"
+                     data-genre="romance"
+                     data-condition="used"
+                     data-price="110">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/archersvoice-250w.webp 250w, images/products/archersvoice-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/archersvoice.jpg" alt="Archer's Voice book cover" loading="lazy"></picture>
                 </div>
@@ -177,7 +223,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance fiction" data-condition="new" data-price="245">
+            <article class="book-item"
+                     data-title="Better Than the Movies"
+                     data-author="Lynn Painter"
+                     data-genre="romance fiction"
+                     data-condition="new"
+                     data-price="245">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/betterthanthemovies-250w.webp 250w, images/products/betterthanthemovies-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/betterthanthemovies.jpg" alt="Better Than the Movies book cover" loading="lazy"></picture>
                 </div>
@@ -190,7 +241,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance" data-condition="like new" data-price="180">
+            <article class="book-item"
+                     data-title="Binding 13"
+                     data-author="Chloe Walsh"
+                     data-genre="romance"
+                     data-condition="like-new"
+                     data-price="180">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/binding13-250w.webp 250w, images/products/binding13-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/binding13.jpg" alt="Binding 13 book cover" loading="lazy"></picture>
                 </div>
@@ -203,7 +259,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance fiction" data-condition="new" data-price="220">
+            <article class="book-item"
+                     data-title="If You Could See the Sun"
+                     data-author="Ann Liang"
+                     data-genre="romance fiction"
+                     data-condition="new"
+                     data-price="220">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/ifyoucouldseethesun-250w.webp 250w, images/products/ifyoucouldseethesun-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/ifyoucouldseethesun.jpg" alt="If You Could See the Sun book cover" loading="lazy"></picture>
                 </div>
@@ -216,7 +277,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="fiction romance" data-condition="used" data-price="99">
+            <article class="book-item"
+                     data-title="Normal People"
+                     data-author="Sally Rooney"
+                     data-genre="fiction romance"
+                     data-condition="used"
+                     data-price="99">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/normalpeople-250w.webp 250w, images/products/normalpeople-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/normalpeople.jpg" alt="Normal People book cover" loading="lazy"></picture>
                 </div>
@@ -229,7 +295,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance" data-condition="like new" data-price="140">
+            <article class="book-item"
+                     data-title="The Deal"
+                     data-author="Elle Kennedy"
+                     data-genre="romance"
+                     data-condition="like-new"
+                     data-price="140">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/thedeal-250w.webp 250w, images/products/thedeal-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/thedeal.jpg" alt="The Deal book cover" loading="lazy"></picture>
                 </div>
@@ -242,7 +313,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance fiction" data-condition="new" data-price="280">
+            <article class="book-item"
+                     data-title="It Ends With Us"
+                     data-author="Colleen Hoover"
+                     data-genre="romance fiction"
+                     data-condition="new"
+                     data-price="280">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/itendswithus-250w.webp 250w, images/products/itendswithus-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/itendswithus.jpg" alt="It Ends With Us book cover" loading="lazy"></picture>
                 </div>
@@ -255,7 +331,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance" data-condition="used" data-price="105">
+            <article class="book-item"
+                     data-title="Play Along"
+                     data-author="Liz Tomforde"
+                     data-genre="romance"
+                     data-condition="used"
+                     data-price="105">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/playalong-250w.webp 250w, images/products/playalong-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/playalong.jpg" alt="Play Along book cover" loading="lazy"></picture>
                 </div>
@@ -268,7 +349,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="fantasy romance" data-condition="used" data-price="120">
+            <article class="book-item"
+                     data-title="Shatter Me"
+                     data-author="Tahereh Mafi"
+                     data-genre="fantasy romance"
+                     data-condition="used"
+                     data-price="120">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/shatterme-250w.webp 250w, images/products/shatterme-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/shatterme.jpg" alt="Shatter Me book cover" loading="lazy"></picture>
                 </div>
@@ -281,7 +367,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance fiction" data-condition="new" data-price="255">
+            <article class="book-item"
+                     data-title="The Love Hypothesis"
+                     data-author="Ali Hazelwood"
+                     data-genre="romance fiction"
+                     data-condition="new"
+                     data-price="255">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/thelovehypothesis-250w.webp 250w, images/products/thelovehypothesis-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/thelovehypothesis.jpg" alt="The Love Hypothesis book cover" loading="lazy"></picture>
                 </div>
@@ -294,7 +385,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance" data-condition="like new" data-price="160">
+            <article class="book-item"
+                     data-title="From Lukov with Love"
+                     data-author="Mariana Zapata"
+                     data-genre="romance"
+                     data-condition="like-new"
+                     data-price="160">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/fromlukovwithlove-250w.webp 250w, images/products/fromlukovwithlove-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/fromlukovwithlove.jpg" alt="From Lukov with Love book cover" loading="lazy"></picture>
                 </div>
@@ -307,7 +403,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance fiction" data-condition="new" data-price="230">
+            <article class="book-item"
+                     data-title="The Spanish Love Deception"
+                     data-author="Elena Armas"
+                     data-genre="romance fiction"
+                     data-condition="new"
+                     data-price="230">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/thespanishlovedeception-250w.webp 250w, images/products/thespanishlovedeception-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/thespanishlovedeception.jpg" alt="The Spanish Love Deception book cover" loading="lazy"></picture>
                 </div>
@@ -320,7 +421,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance" data-condition="used" data-price="115">
+            <article class="book-item"
+                     data-title="The Fine Print"
+                     data-author="Lauren Asher"
+                     data-genre="romance"
+                     data-condition="used"
+                     data-price="115">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/thefineprint-250w.webp 250w, images/products/thefineprint-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/thefineprint.jpg" alt="The Fine Print book cover" loading="lazy"></picture>
                 </div>
@@ -333,7 +439,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance" data-condition="like new" data-price="170">
+            <article class="book-item"
+                     data-title="Terms and Conditions"
+                     data-author="Lauren Asher"
+                     data-genre="romance"
+                     data-condition="like-new"
+                     data-price="170">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/termsandconditions-250w.webp 250w, images/products/termsandconditions-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/termsandconditions.jpg" alt="Terms and Conditions book cover" loading="lazy"></picture>
                 </div>
@@ -346,7 +457,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="romance fiction" data-condition="used" data-price="95">
+            <article class="book-item"
+                     data-title="The Summer I Turned Pretty"
+                     data-author="Jenny Han"
+                     data-genre="romance fiction"
+                     data-condition="used"
+                     data-price="95">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/thesummeriturnedpretty-250w.webp 250w, images/products/thesummeriturnedpretty-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/thesummeriturnedpretty.jpg" alt="The Summer I Turned Pretty book cover" loading="lazy"></picture>
                 </div>
@@ -359,7 +475,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="fantasy romance" data-condition="new" data-price="290">
+            <article class="book-item"
+                     data-title="This Woven Kingdom"
+                     data-author="Tahereh Mafi"
+                     data-genre="fantasy romance"
+                     data-condition="new"
+                     data-price="290">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/thiswovenkingdom-250w.webp 250w, images/products/thiswovenkingdom-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/thiswovenkingdom.jpg" alt="This Woven Kingdom book cover" loading="lazy"></picture>
                 </div>
@@ -372,7 +493,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="thriller fiction" data-condition="used" data-price="100">
+            <article class="book-item"
+                     data-title="Gone Girl"
+                     data-author="Gillian Flynn"
+                     data-genre="thriller fiction"
+                     data-condition="used"
+                     data-price="100">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/gonegirl-250w.webp 250w, images/products/gonegirl-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/gonegirl.jpg" alt="Gone Girl book cover" loading="lazy"></picture>
                 </div>
@@ -385,7 +511,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="thriller fiction" data-condition="like new" data-price="145">
+            <article class="book-item"
+                     data-title="The Silent Patient"
+                     data-author="Alex Michaelides"
+                     data-genre="thriller fiction"
+                     data-condition="like-new"
+                     data-price="145">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/thesilentpatient-250w.webp 250w, images/products/thesilentpatient-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/thesilentpatient.jpg" alt="The Silent Patient book cover" loading="lazy"></picture>
                 </div>
@@ -398,7 +529,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="thriller" data-condition="used" data-price="90">
+            <article class="book-item"
+                     data-title="The Girl on the Train"
+                     data-author="Paula Hawkins"
+                     data-genre="thriller"
+                     data-condition="used"
+                     data-price="90">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/thegirlonthetrain-250w.webp 250w, images/products/thegirlonthetrain-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/thegirlonthetrain.jpg" alt="The Girl on the Train book cover" loading="lazy"></picture>
                 </div>
@@ -411,7 +547,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="thriller fiction" data-condition="new" data-price="210">
+            <article class="book-item"
+                     data-title="Then She Was Gone"
+                     data-author="Lisa Jewell"
+                     data-genre="thriller fiction"
+                     data-condition="new"
+                     data-price="210">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/thenshewasgone-250w.webp 250w, images/products/thenshewasgone-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/thenshewasgone.jpg" alt="Then She Was Gone book cover" loading="lazy"></picture>
                 </div>
@@ -424,7 +565,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="non-fiction" data-condition="new" data-price="320">
+            <article class="book-item"
+                     data-title="Atomic Habits"
+                     data-author="James Clear"
+                     data-genre="non-fiction"
+                     data-condition="new"
+                     data-price="320">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/atomichabits-250w.webp 250w, images/products/atomichabits-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/atomichabits.jpg" alt="Atomic Habits book cover" loading="lazy"></picture>
                 </div>
@@ -437,7 +583,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="non-fiction" data-condition="used" data-price="125">
+            <article class="book-item"
+                     data-title="Educated"
+                     data-author="Tara Westover"
+                     data-genre="non-fiction"
+                     data-condition="used"
+                     data-price="125">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/educated-250w.webp 250w, images/products/educated-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/educated.jpg" alt="Educated book cover" loading="lazy"></picture>
                 </div>
@@ -450,7 +601,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="non-fiction" data-condition="like new" data-price="195">
+            <article class="book-item"
+                     data-title="Sapiens: A Brief History of Humankind"
+                     data-author="Yuval Noah Harari"
+                     data-genre="non-fiction"
+                     data-condition="like-new"
+                     data-price="195">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/sapiens-250w.webp 250w, images/products/sapiens-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/sapiens.jpg" alt="Sapiens: A Brief History of Humankind book cover" loading="lazy"></picture>
                 </div>
@@ -463,7 +619,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="non-fiction" data-condition="used" data-price="110">
+            <article class="book-item"
+                     data-title="Untamed"
+                     data-author="Glennon Doyle"
+                     data-genre="non-fiction"
+                     data-condition="used"
+                     data-price="110">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/untamed-250w.webp 250w, images/products/untamed-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/untamed.jpg" alt="Untamed book cover" loading="lazy"></picture>
                 </div>
@@ -476,7 +637,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="fantasy" data-condition="new" data-price="260">
+            <article class="book-item"
+                     data-title="The Cruel Prince"
+                     data-author="Holly Black"
+                     data-genre="fantasy"
+                     data-condition="new"
+                     data-price="260">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/thecruelprince-250w.webp 250w, images/products/thecruelprince-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/thecruelprince.jpg" alt="The Cruel Prince book cover" loading="lazy"></picture>
                 </div>
@@ -489,7 +655,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="fantasy romance" data-condition="like new" data-price="310">
+            <article class="book-item"
+                     data-title="A Court of Silver Flames"
+                     data-author="Sarah J. Maas"
+                     data-genre="fantasy romance"
+                     data-condition="like-new"
+                     data-price="310">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/acourtofsilverflames-250w.webp 250w, images/products/acourtofsilverflames-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/acourtofsilverflames.jpg" alt="A Court of Silver Flames book cover" loading="lazy"></picture>
                 </div>
@@ -502,7 +673,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="fantasy" data-condition="used" data-price="130">
+            <article class="book-item"
+                     data-title="Throne of Glass"
+                     data-author="Sarah J. Maas"
+                     data-genre="fantasy"
+                     data-condition="used"
+                     data-price="130">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/throneofglass-250w.webp 250w, images/products/throneofglass-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/throneofglass.jpg" alt="Throne of Glass book cover" loading="lazy"></picture>
                 </div>
@@ -515,7 +691,12 @@
                 </div>
             </article>
 
-            <article class="book-item" data-genre="fantasy" data-condition="new" data-price="275">
+            <article class="book-item"
+                     data-title="The Name of the Wind"
+                     data-author="Patrick Rothfuss"
+                     data-genre="fantasy"
+                     data-condition="new"
+                     data-price="275">
                 <div class="book-image">
                     <picture><source type="image/webp" srcset="images/products/thenameofthewind-250w.webp 250w, images/products/thenameofthewind-500w.webp 500w" sizes="(max-width: 768px) 45vw, 170px"><img src="images/products/thenameofthewind.jpg" alt="The Name of the Wind book cover" loading="lazy"></picture>
                 </div>
