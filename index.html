@@ -11,18 +11,26 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-               <li><a href="catalogue.html">Catalogue</a></li>
-               <li><a href="bundles.html">Gift Bundles</a></li>
-                <li><a href="blog.html">Blog/Reviews</a></li>
-               <li><a href="about.html">About Us</a></li>
-               <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    
+<header>
+    <button id="hamburger-btn" class="hamburger-toggle" type="button"
+            aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+    </button>
+    <nav id="primary-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="catalogue.html">Catalogue</a></li>
+            <li><a href="bundles.html">Gift Bundles</a></li>
+            <li><a href="blog.html">Blog/Reviews</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#" class="cart-link">Cart (<span id="cart-badge-count">0</span>)</a></li>
+        </ul>
+    </nav>
+</header>
 
 <main>
 <section class="hero-split">
