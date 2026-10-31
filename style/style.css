@@ -594,6 +594,59 @@ footer {
     transform: translateY(1px);
 }
 
+/* Catalogue toolbar: count, sort, clear */
+.catalogue-toolbar {
+  max-width: 1200px;
+  margin: 0 auto 1.25rem;
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+#results-count {
+  margin-right: auto;
+  font-size: 0.875rem;
+  color: #6b6459;
+}
+
+.catalogue-toolbar label {
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+
+.catalogue-toolbar select {
+  padding: 0.5rem;
+  border: 1px solid #d8cdb8;
+  border-radius: 3px;
+  background: #ffffff;
+  font-family: var(--font-body);
+}
+
+#clear-filters-btn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: var(--terracotta);
+  border: 1px solid var(--terracotta);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#clear-filters-btn:hover {
+  background: var(--terracotta);
+  color: #ffffff;
+}
+
+#no-results {
+  max-width: 1200px;
+  margin: 0 auto 1.25rem;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  color: #6b6459;
+}
+
+
 /* ==========================================
    GIFT BUNDLES PAGE
 ========================================== */
@@ -1170,6 +1223,49 @@ footer {
     transform: translateY(1px);
 }
 
+
+/* ==========================================
+HEADER / HAMBURGER / ACTIVE LINK
+========================================== */
+
+/* Active page indicator */
+header nav a[aria-current="page"] {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+ 
+/* Cart badge */
+.cart-link { white-space: nowrap; }
+ 
+/* Hamburger button: hidden on desktop */
+.hamburger-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.hamburger-toggle:focus-visible {
+  outline-color: #ffffff;
+}
+ 
+.hamburger-bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: currentColor; /* matches header text colour */
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+ 
+
+
+
 /* ==========================================
    RESPONSIVE
    three breakpoints now - tablet (1024), phone (768) and small phone (480).
@@ -1328,4 +1424,22 @@ footer {
     nav ul li a {
         padding: 0.75rem 1rem;
     }
+}
+
+/* Mobile: collapse the nav behind the button */
+@media (max-width: 768px) {
+.hamburger-toggle { display: flex; width: fit-content; margin: 0.5rem 0.75rem 0.5rem auto; } 
+  header nav { display: none; }
+  header nav.is-open { display: block; }
+ 
+  header nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+ 
+  /* Burger -> X */
+  .hamburger-toggle[aria-expanded="true"] .hamburger-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .hamburger-toggle[aria-expanded="true"] .hamburger-bar:nth-child(2) { opacity: 0; }
+  .hamburger-toggle[aria-expanded="true"] .hamburger-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 }
