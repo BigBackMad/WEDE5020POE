@@ -1264,6 +1264,110 @@ header nav a[aria-current="page"] {
 }
  
 
+/* ==========================================
+   QUICK-VIEW MODAL & TOAST STYLES
+   ========================================== */
+
+/* Native <dialog> Modal Styling */
+.quick-view-modal {
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  max-width: 650px;
+  width: 90%;
+  background-color: var(--cream-bg, #fdfbf7);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  margin: auto;
+}
+
+/* Semi-transparent Backdrop Overlay */
+.quick-view-modal::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.modal-content {
+  position: relative;
+  padding: 2rem;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--forest-green, #2d4a3e);
+  cursor: pointer;
+}
+
+.modal-body {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.modal-image-col img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  object-fit: cover;
+}
+
+.modal-details-col .author {
+  font-style: italic;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.modal-details-col .genre-tag {
+  font-size: 0.85rem;
+  text-transform: capitalize;
+  color: var(--terracotta, #c85a32);
+  margin-bottom: 0.75rem;
+}
+
+.modal-details-col .price {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--forest-green, #2d4a3e);
+  margin-bottom: 1rem;
+}
+
+.modal-description {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  border-top: 1px solid #e2ded8;
+  padding-top: 0.75rem;
+}
+
+/* Toast Message Notification Styling */
+.toast-message {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: var(--forest-green, #2d4a3e);
+  color: #ffffff;
+  padding: 0.85rem 1.4rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  font-size: 0.95rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.toast-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 
 /* ==========================================
@@ -1442,4 +1546,17 @@ header nav a[aria-current="page"] {
   .hamburger-toggle[aria-expanded="true"] .hamburger-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
   .hamburger-toggle[aria-expanded="true"] .hamburger-bar:nth-child(2) { opacity: 0; }
   .hamburger-toggle[aria-expanded="true"] .hamburger-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+}
+
+
+/* Mobile Responsive Modal (< 600px) */
+@media (max-width: 600px) {
+  .modal-body {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  .modal-image-col img {
+    max-width: 140px;
+  }
 }

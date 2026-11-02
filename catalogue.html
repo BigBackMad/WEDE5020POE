@@ -723,5 +723,43 @@
     <footer>
         <p>&copy; <span id="current-year">2026</span> Little Woods Books. All rights reserved.</p>
     </footer>
+
+    <!-- Native HTML Quick-View Modal -->
+<dialog id="book-modal" class="quick-view-modal">
+  <div class="modal-content">
+    <button id="close-modal-btn" class="modal-close-btn" aria-label="Close modal">&times;</button>
+    
+    <div class="modal-body">
+      <div class="modal-image-col">
+        <img id="modal-img" src="" alt="Book cover preview">
+      </div>
+
+      <div class="modal-details-col">
+        <span id="modal-condition" class="badge">Condition</span>
+        <h2 id="modal-title">Book Title</h2>
+        <p id="modal-author" class="author">By Author Name</p>
+        <p id="modal-genre" class="genre-tag">Genre: General</p>
+        <p id="modal-price" class="price">R0.00</p>
+        
+        <div class="modal-description">
+          <p id="modal-desc">
+            A wonderful curated pick from Little Woods Books. Inspected for quality and ready for a new home.
+          </p>
+        </div>
+
+        <div class="modal-actions">
+          <button id="modal-add-cart-btn" class="btn btn-primary">
+            Add to Reading List / Reserve
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- Pop-Up Toast Notification -->
+<div id="toast-notification" class="toast-message" role="status" aria-live="polite"></div>
+
+
 </body>
 </html>

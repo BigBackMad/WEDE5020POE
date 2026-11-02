@@ -350,3 +350,101 @@ function incrementCartBadge(amount = 1) {
   } catch (e) { /* storage blocked */ }
   updateCartBadge();
 }
+
+// ==========================================
+// CATALOGUE QUICK-VIEW MODAL & TOAST SYSTEM
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('book-modal');
+  if (!modal) return; // Guard clause: only runs if modal exists on catalogue.html
+
+  // Modal DOM Elements
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  const modalImg = document.getElementById('modal-img');
+  const modalTitle = document.getElementById('modal-title');
+  const modalAuthor = document.getElementById('modal-author');
+  const modalGenre = document.getElementById('modal-genre');
+  const modalCondition = document.getElementById('modal-condition');
+  const modalPrice = document.getElementById('modal-price');
+  const modalAddCartBtn = document.getElementById('modal-add-cart-btn');
+
+  let activeBookTitle = '';
+
+  // 1. Attach Click Listener to "See the Book" Buttons on Catalogue Cards
+  document.addEventListener('click', (event) => {
+    const triggerBtn = event.target.closest('.quick-view-btn') || event.target.closest('.book-details button');
+    
+    if (triggerBtn) {
+      const card = triggerBtn.closest('.book-card') || triggerBtn.closest('.book-item');
+      if (!card) return;
+
+      // Extract details from dataset and DOM elements
+      const title = card.dataset.title || card.querySelector('h3, .book-name')?.textContent || 'Book Details';
+      const author = card.dataset.author || card.querySelector('.author')?.textContent || 'Little Woods Books';
+      const genre = card.dataset.genre || 'General';
+      const condition = card.dataset.condition || 'Good';
+      const price = card.dataset.price ? `R${parseFloat(card.dataset.price).toFixed(2)}` : (card.querySelector('.price')?.textContent || 'R0.00');
+      const imgSrc = card.querySelector('img')?.src || '';
+
+      activeBookTitle = title;
+
+      // Populate Modal Fields
+      if (modalTitle) modalTitle.textContent = title;
+      if (modalAuthor) modalAuthor.textContent = author.startsWith('By') ? author : `By ${author}`;
+      if (modalGenre) modalGenre.textContent = `Genre: ${genre}`;
+      if (modalCondition) modalCondition.textContent = condition.replace('-', ' ');
+      if (modalPrice) modalPrice.textContent = price;
+      if (modalImg) {
+        modalImg.src = imgSrc;
+        modalImg.alt = `${title} book cover`;
+      }
+
+      // Open Modal natively
+      modal.showModal();
+    }
+  });
+
+  // 2. Close Modal Handlers (Close button & Backdrop click)
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => modal.close());
+  }
+
+  modal.addEventListener('click', (event) => {
+    // Detect click on the backdrop (outside .modal-content container)
+    const rect = modal.getBoundingClientRect();
+    const isInDialog = (
+      rect.top <= event.clientY && event.clientY <= rect.bottom &&
+      rect.left <= event.clientX && event.clientX <= rect.right
+    );
+    if (!isInDialog) {
+      modal.close();
+    }
+  });
+
+  // 3. Modal "Add to Cart / Reserve" Button
+  if (modalAddCartBtn) {
+    modalAddCartBtn.addEventListener('click', () => {
+      // Increment global cart counter badge (from Step 2 helper)
+      if (typeof incrementCartBadge === 'function') {
+        incrementCartBadge(1);
+      }
+      
+      // Close modal & show toast feedback
+      modal.close();
+      showToast(`Added "${activeBookTitle}" to your reading list!`);
+    });
+  }
+});
+
+// Global Helper: Display Toast Notification
+function showToast(message) {
+  const toast = document.getElementById('toast-notification');
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
