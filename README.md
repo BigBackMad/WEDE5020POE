@@ -331,7 +331,7 @@ The following summarises the main stages of development and improvements made th
 
 - MDN Web Docs, 2026. *CSS container queries.* [online] Available at: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Containment/Container_queries [Accessed 18 September 2026].
 
-- MDN Web Docs, 2026. *<h1>–<h6>: HTML section heading elements.* [online] Available at: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements [Accessed 14 August 2026].
+- MDN Web Docs, 2026. <h1>–<h6>: HTML section heading elements. [online] Available at: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements [Accessed 14 August 2026].
 
 - MDN Web Docs, 2026. *Responsive web design.* [online] Available at: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design [Accessed 18 September 2026].
 
