@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog & Reviews | Little Woods Books</title>
     <link rel="stylesheet" href="style/style.css">
-    <script src="js/script.js" defer></script>
+    <script src="script/script.js" defer></script>
 </head>
  
 <body>
@@ -55,25 +55,43 @@ so yeah. next time you pick up one of our used copies and spot a little note or 
     <h2>Little Woods Monthly Reads</h2>
     <p class="favourites-intro">A few from my own shelf that I couldn't stop thinking about this month.</p>
     <div class="favourites-grid">
-        <article class="review-card">
+        <article class="review-card" data-post-id="post-1">
             <picture><source type="image/webp" srcset="images/products/binding13-250w.webp 250w, images/products/binding13-500w.webp 500w" sizes="(max-width: 768px) 90vw, 300px"><img src="images/products/binding13.jpg" alt="Binding 13 book cover" loading="lazy"></picture>
             <h3>Binding 13</h3>
             <p class="rating" aria-label="5 out of 5 stars">★★★★★</p>
             <p><strong>Owner's Note:</strong> This series completely won me over — funny, tender, and heartbreaking in equal measure.
                  What I loved most was how the relationship kept growing even while they were apart, with honest communication instead of the usual manufactured drama.
                   A genuinely beautiful read.</p>
+
+            <!-- Interactive Like Button & Counter -->
+            <div class="card-footer">
+                <button type="button" class="like-btn" aria-label="Like this review" aria-pressed="false">
+                    <span class="heart-icon">&#9825;</span>
+                    <span class="like-text">Like</span>
+                    (<span class="like-count">0</span>)
+                </button>
+            </div>
         </article>
 
-        <article class="review-card">
+        <article class="review-card" data-post-id="post-2">
             <picture><source type="image/webp" srcset="images/products/thiswovenkingdom-250w.webp 250w, images/products/thiswovenkingdom-500w.webp 500w" sizes="(max-width: 768px) 90vw, 300px"><img src="images/products/thiswovenkingdom.jpg" alt="This Woven Kingdom book cover" loading="lazy"></picture>
             <h3>This Woven Kingdom</h3>
             <p class="rating" aria-label="4 out of 5 stars">★★★★☆</p>
             <p><strong>Owner's Note:</strong> Beautifully written, with dialogue that's an absolute pleasure to read.
                  Alizeh is a compelling lead, even when her choices left me questioning her — and the book's fast pace made for a great way
                   to break out of a reading slump. A fun, engaging start to the series that I'd happily recommend.</p>
+
+            <!-- Interactive Like Button & Counter -->
+            <div class="card-footer">
+                <button type="button" class="like-btn" aria-label="Like this review" aria-pressed="false">
+                    <span class="heart-icon">&#9825;</span>
+                    <span class="like-text">Like</span>
+                    (<span class="like-count">0</span>)
+                </button>
+            </div>
         </article>
 
-        <article class="review-card">
+        <article class="review-card" data-post-id="post-3">
             <picture><source type="image/webp" srcset="images/products/archersvoice-250w.webp 250w, images/products/archersvoice-500w.webp 500w" sizes="(max-width: 768px) 90vw, 300px"><img src="images/products/archersvoice.jpg" alt="Archer's Voice book cover" loading="lazy"></picture>
             <h3>Archer's Voice</h3>
             <p class="rating" aria-label="5 out of 5 stars">★★★★★</p>
@@ -81,6 +99,15 @@ so yeah. next time you pick up one of our used copies and spot a little note or 
                  Two people healing from their own trauma find each other, and watching Archer grow past his social anxiety
                   to become the man Bree deserves is genuinely inspiring.
                    A powerful reminder that disability doesn't define a person. 5/5.</p>
+
+            <!-- Interactive Like Button & Counter -->
+            <div class="card-footer">
+                <button type="button" class="like-btn" aria-label="Like this review" aria-pressed="false">
+                    <span class="heart-icon">&#9825;</span>
+                    <span class="like-text">Like</span>
+                    (<span class="like-count">0</span>)
+                </button>
+            </div>
         </article>
     </div>
 </section>
@@ -88,16 +115,51 @@ so yeah. next time you pick up one of our used copies and spot a little note or 
         <section class="newsletter-box">
             <h3>Never Miss a Deal</h3>
             <p>Get my weekly highlights and exclusive discounts sent to your inbox.</p>
-            <form>
-                <input type="email" placeholder="Your email address">
+
+            <!-- Success Feedback Banner -->
+            <div id="newsletter-success" class="success-banner" style="display: none;">
+                🎉 Welcome to the club! Check your inbox soon for your weekly highlights.
+            </div>
+
+            <!-- novalidate = my own JS error message shows instead of the browser popup -->
+            <form id="newsletter-form" novalidate>
+                <input type="email" id="newsletter-email" name="email" placeholder="Your email address" aria-label="Your email address" required>
                 <button type="submit">Subscribe</button>
             </form>
+            <span id="newsletter-error" class="error-msg"></span>
         </section>
     </main>
  
     <footer>
         <p> &copy; <span id="current-year">2026</span> Little Woods Books. All rights reserved.</p>
     </footer>
+
+    <!-- Slide-Over Cart Drawer -->
+<div id="cart-backdrop" class="cart-backdrop"></div>
+
+<aside id="cart-drawer" class="cart-drawer" aria-label="Shopping Cart">
+  <div class="cart-header">
+    <h2>Your Reading List / Cart</h2>
+    <button id="close-cart-btn" class="close-cart-btn" aria-label="Close cart">&times;</button>
+  </div>
+
+  <!-- Dynamic Cart Items Container -->
+  <div id="cart-items-container" class="cart-items-body">
+    <!-- Populated by JS -->
+  </div>
+
+  <!-- Cart Footer & Total -->
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span>Total Price:</span>
+      <span id="cart-total-price">R0.00</span>
+    </div>
+    <div class="cart-actions">
+      <button id="clear-cart-btn" class="btn btn-secondary">Clear Cart</button>
+
+    </div>
+  </div>
+</aside>
  
 </body>
 </html>

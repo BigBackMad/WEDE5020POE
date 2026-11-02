@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> About us | Little Woods Books</title>
     <link rel="stylesheet" href="style/style.css">
-    <script src="js/script.js" defer></script>
+    <script src="script/script.js" defer></script>
 </head>
 
 <body>
@@ -65,6 +65,33 @@
     <footer>
         <p> &copy; <span id="current-year">2026</span> Little Woods Books. All rights reserved.</p>
     </footer>
+
+    <!-- Slide-Over Cart Drawer -->
+<div id="cart-backdrop" class="cart-backdrop"></div>
+
+<aside id="cart-drawer" class="cart-drawer" aria-label="Shopping Cart">
+  <div class="cart-header">
+    <h2>Your Reading List / Cart</h2>
+    <button id="close-cart-btn" class="close-cart-btn" aria-label="Close cart">&times;</button>
+  </div>
+
+  <!-- Dynamic Cart Items Container -->
+  <div id="cart-items-container" class="cart-items-body">
+    <!-- Populated by JS -->
+  </div>
+
+  <!-- Cart Footer & Total -->
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span>Total Price:</span>
+      <span id="cart-total-price">R0.00</span>
+    </div>
+    <div class="cart-actions">
+      <button id="clear-cart-btn" class="btn btn-secondary">Clear Cart</button>
+
+    </div>
+  </div>
+</aside>
 
 </body>
 </html>

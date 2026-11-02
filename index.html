@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
-    <script src="js/script.js" defer></script>
+    <script src="script/script.js" defer></script>
 </head>
 
 <body>
@@ -68,52 +68,68 @@
         <a href="catalogue.html" class="btn">See More</a>
     </div>
 
-    <div class="picks-scroll">
-        <div class="pick-card">
-            <picture><source type="image/webp" srcset="images/verity-250w.webp 250w, images/verity-500w.webp 500w" sizes="140px"><img src="images/verity.jpg" alt="Verity" loading="lazy"></picture>
-            <p class="pick-title">Verity</p>
-            <p class="pick-price">R135.00</p>
+    <!-- Interactive Carousel Wrapper -->
+    <div class="carousel-container">
+
+        <!-- Previous / Scroll Left Button -->
+        <button type="button" id="prev-shelf-btn" class="shelf-arrow-btn prev-btn" aria-label="Scroll to previous books" aria-controls="trending-shelf">
+            &#10094;
+        </button>
+
+        <!-- Scrollable Horizontal Track -->
+        <div id="trending-shelf" class="picks-scroll">
+            <div class="pick-card">
+                <picture><source type="image/webp" srcset="images/verity-250w.webp 250w, images/verity-500w.webp 500w" sizes="140px"><img src="images/verity.jpg" alt="Verity" loading="lazy"></picture>
+                <p class="pick-title">Verity</p>
+                <p class="pick-price">R135.00</p>
+            </div>
+            <div class="pick-card">
+                <picture><source type="image/webp" srcset="images/acotar-250w.webp 250w, images/acotar-500w.webp 500w" sizes="140px"><img src="images/acotar.jpg" alt="ACOTAR" loading="lazy"></picture>
+                <p class="pick-title">ACOTAR</p>
+                <p class="pick-price">R350.00</p>
+            </div>
+            <div class="pick-card">
+                <picture><source type="image/webp" srcset="images/betterthanthemovies-250w.webp 250w, images/betterthanthemovies-500w.webp 500w" sizes="140px"><img src="images/betterthanthemovies.jpg" alt="Better Than the Movies" loading="lazy"></picture>
+                <p class="pick-title">Better Than the Movies</p>
+                <p class="pick-price">R245.00</p>
+            </div>
+            <div class="pick-card">
+                <picture><source type="image/webp" srcset="images/archersvoice-250w.webp 250w, images/archersvoice-500w.webp 500w" sizes="140px"><img src="images/archersvoice.jpg" alt="Archer's Voice" loading="lazy"></picture>
+                <p class="pick-title">Archer's Voice</p>
+                <p class="pick-price">R110.00</p>
+            </div>
+            <div class="pick-card">
+                <picture><source type="image/webp" srcset="images/uglylove-250w.webp 250w, images/uglylove-500w.webp 500w" sizes="140px"><img src="images/uglylove.jpg" alt="Ugly Love" loading="lazy"></picture>
+                <p class="pick-title">Ugly Love</p>
+                <p class="pick-price">R260.00</p>
+            </div>
+            <div class="pick-card">
+                <picture><source type="image/webp" srcset="images/thedeal-250w.webp 250w, images/thedeal-500w.webp 500w" sizes="140px"><img src="images/thedeal.jpg" alt="The Deal" loading="lazy"></picture>
+                <p class="pick-title">The Deal</p>
+                <p class="pick-price">R140.00</p>
+            </div>
+            <div class="pick-card">
+                <picture><source type="image/webp" srcset="images/normalpeople-250w.webp 250w, images/normalpeople-500w.webp 500w" sizes="140px"><img src="images/normalpeople.jpg" alt="Normal People" loading="lazy"></picture>
+                <p class="pick-title">Normal People</p>
+                <p class="pick-price">R99.00</p>
+            </div>
+            <div class="pick-card">
+                <picture><source type="image/webp" srcset="images/ifyoucouldseethesun-250w.webp 250w, images/ifyoucouldseethesun-500w.webp 500w" sizes="140px"><img src="images/ifyoucouldseethesun.jpg" alt="If You Could See the Sun" loading="lazy"></picture>
+                <p class="pick-title">If You Could See the Sun</p>
+                <p class="pick-price">R220.00</p>
+            </div>
+            <div class="pick-card">
+                <picture><source type="image/webp" srcset="images/binding13-250w.webp 250w, images/binding13-500w.webp 500w" sizes="140px"><img src="images/binding13.jpg" alt="Binding 13" loading="lazy"></picture>
+                <p class="pick-title">Binding 13</p>
+                <p class="pick-price">R180.00</p>
+            </div>
         </div>
-        <div class="pick-card">
-            <picture><source type="image/webp" srcset="images/acotar-250w.webp 250w, images/acotar-500w.webp 500w" sizes="140px"><img src="images/acotar.jpg" alt="ACOTAR" loading="lazy"></picture>
-            <p class="pick-title">ACOTAR</p>
-            <p class="pick-price">R350.00</p>
-        </div>
-        <div class="pick-card">
-            <picture><source type="image/webp" srcset="images/betterthanthemovies-250w.webp 250w, images/betterthanthemovies-500w.webp 500w" sizes="140px"><img src="images/betterthanthemovies.jpg" alt="Better Than the Movies" loading="lazy"></picture>
-            <p class="pick-title">Better Than the Movies</p>
-            <p class="pick-price">R245.00</p>
-        </div>
-        <div class="pick-card">
-            <picture><source type="image/webp" srcset="images/archersvoice-250w.webp 250w, images/archersvoice-500w.webp 500w" sizes="140px"><img src="images/archersvoice.jpg" alt="Archer's Voice" loading="lazy"></picture>
-            <p class="pick-title">Archer's Voice</p>
-            <p class="pick-price">R110.00</p>
-        </div>
-        <div class="pick-card">
-            <picture><source type="image/webp" srcset="images/uglylove-250w.webp 250w, images/uglylove-500w.webp 500w" sizes="140px"><img src="images/uglylove.jpg" alt="Ugly Love" loading="lazy"></picture>
-            <p class="pick-title">Ugly Love</p>
-            <p class="pick-price">R260.00</p>
-        </div>
-        <div class="pick-card">
-            <picture><source type="image/webp" srcset="images/thedeal-250w.webp 250w, images/thedeal-500w.webp 500w" sizes="140px"><img src="images/thedeal.jpg" alt="The Deal" loading="lazy"></picture>
-            <p class="pick-title">The Deal</p>
-            <p class="pick-price">R140.00</p>
-        </div>
-        <div class="pick-card">
-            <picture><source type="image/webp" srcset="images/normalpeople-250w.webp 250w, images/normalpeople-500w.webp 500w" sizes="140px"><img src="images/normalpeople.jpg" alt="Normal People" loading="lazy"></picture>
-            <p class="pick-title">Normal People</p>
-            <p class="pick-price">R99.00</p>
-        </div>
-        <div class="pick-card">
-            <picture><source type="image/webp" srcset="images/ifyoucouldseethesun-250w.webp 250w, images/ifyoucouldseethesun-500w.webp 500w" sizes="140px"><img src="images/ifyoucouldseethesun.jpg" alt="If You Could See the Sun" loading="lazy"></picture>
-            <p class="pick-title">If You Could See the Sun</p>
-            <p class="pick-price">R220.00</p>
-        </div>
-        <div class="pick-card">
-            <picture><source type="image/webp" srcset="images/binding13-250w.webp 250w, images/binding13-500w.webp 500w" sizes="140px"><img src="images/binding13.jpg" alt="Binding 13" loading="lazy"></picture>
-            <p class="pick-title">Binding 13</p>
-            <p class="pick-price">R180.00</p>
-        </div>
+
+        <!-- Next / Scroll Right Button -->
+        <button type="button" id="next-shelf-btn" class="shelf-arrow-btn next-btn" aria-label="Scroll to next books" aria-controls="trending-shelf">
+            &#10095;
+        </button>
+
     </div>
 </section>
 </main>
@@ -121,6 +137,33 @@
   <footer>
         <p>&copy; <span id="current-year">2026</span> Little Woods Books. All rights reserved.</p>
     </footer>
+
+    <!-- Slide-Over Cart Drawer -->
+<div id="cart-backdrop" class="cart-backdrop"></div>
+
+<aside id="cart-drawer" class="cart-drawer" aria-label="Shopping Cart">
+  <div class="cart-header">
+    <h2>Your Reading List / Cart</h2>
+    <button id="close-cart-btn" class="close-cart-btn" aria-label="Close cart">&times;</button>
+  </div>
+
+  <!-- Dynamic Cart Items Container -->
+  <div id="cart-items-container" class="cart-items-body">
+    <!-- Populated by JS -->
+  </div>
+
+  <!-- Cart Footer & Total -->
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span>Total Price:</span>
+      <span id="cart-total-price">R0.00</span>
+    </div>
+    <div class="cart-actions">
+      <button id="clear-cart-btn" class="btn btn-secondary">Clear Cart</button>
+
+    </div>
+  </div>
+</aside>
 
 </body>
 </html>

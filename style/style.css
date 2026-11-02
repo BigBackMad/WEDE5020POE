@@ -1,3 +1,20 @@
+/* ==========================================
+   LITTLE WOODS BOOKS - STYLESHEET
+   quick map of the file so it's easy to find stuff:
+     1. reset + root variables
+     2. base / typography
+     3. header + nav (hamburger lives here too)
+     4. shared / reusable components (buttons, footer, toast, form messages)
+     5. cart drawer (it's on every page)
+     6. index page
+     7. catalogue page (+ the quick view modal)
+     8. gift bundles page
+     9. blog / reviews page
+    10. about page
+    11. contact page (+ status badge + faq)
+    12. responsive (all the media queries together at the bottom)
+========================================== */
+
 * {
     margin: 0;
     padding: 0;
@@ -104,6 +121,47 @@ nav ul li a:hover {
     background-color: var(--terracotta);
 }
 
+/* the js adds aria-current="page" to whichever link matches the page
+   you're on, so this just makes that one bold + underlined */
+header nav a[aria-current="page"] {
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+}
+
+/* stops "Cart (0)" from breaking onto 2 lines */
+.cart-link {
+    white-space: nowrap;
+}
+
+/* hamburger button - hidden on desktop, only shows up on phones
+   (the phone bit is in the responsive section at the bottom) */
+.hamburger-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #ffffff; /* the bars use currentColor so this is what makes them white on the dark green header */
+}
+
+/* the normal green focus outline disappears on the dark header so
+   making this one white */
+.hamburger-toggle:focus-visible {
+    outline-color: #ffffff;
+}
+
+.hamburger-bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: currentColor;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
 /* ============================
    SHARED / REUSABLE COMPONENTS
    stuff i use across more than one page so i don't repeat myself
@@ -135,29 +193,6 @@ nav ul li a:hover {
     transform: translateY(1px);
 }
 
-.featured-post {
-    background: #ffffff;
-    padding: 1.5625rem;
-    margin-bottom: 1.875rem;
-}
-
-.blog-sidebar {
-    background: #f4efe9;
-    padding: 1.25rem;
-}
-
-.contact-form fieldset {
-    border: 1px solid var(--forest-green);
-    padding: 1.25rem;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 0.625rem;
-    margin-top: 0.3125rem;
-}
-
 footer {
     clear: both;
     text-align: center;
@@ -165,6 +200,224 @@ footer {
     background-color: var(--forest-green);
     color: #ffffff;
     margin-top: 2.5rem;
+}
+
+/* --- Toast: the little "added to cart" popup at the bottom of the screen ---
+   js creates it and adds/removes the .show class. z-index is higher than
+   the cart drawer so you can still see it when you remove stuff from the cart */
+#toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    max-width: 90%;
+    padding: 0.875rem 1.5rem;
+    background-color: var(--forest-dark);
+    color: #ffffff;
+    border-left: 4px solid var(--terracotta);
+    border-radius: 4px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    font-size: 0.9375rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10000;
+}
+
+#toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* --- Form messages (contact form + newsletter both use these) ---
+   the js fills in .error-msg and adds .input-error to the box that's wrong */
+.required {
+    color: var(--terracotta);
+}
+
+.error-msg {
+    display: block;
+    min-height: 1.1rem; /* keeps the space reserved so the form doesn't jump around when an error shows up */
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+    color: #d32f2f;
+}
+
+input.input-error,
+select.input-error,
+textarea.input-error {
+    border-color: #d32f2f !important;
+    background-color: #fff8f8 !important;
+}
+
+.success-banner {
+    margin-bottom: 1.25rem;
+    padding: 1rem;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+/* ==========================================
+   CART DRAWER
+   slides in from the right when you click "Cart" in the navbar.
+   hidden off-screen by default (right: -420px), js adds .is-open to slide it in
+========================================== */
+
+/* dark see-through layer behind the drawer */
+.cart-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 9998;
+}
+
+.cart-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 400px;
+    max-width: 90vw;
+    height: 100vh;
+    background-color: var(--cream-bg);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 9999;
+}
+
+.cart-drawer.is-open {
+    right: 0;
+}
+
+.cart-header {
+    padding: 1.25rem 1.5rem;
+    background-color: var(--forest-green);
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-header h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: #ffffff;
+}
+
+.close-cart-btn {
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: #ffffff;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* the scrollable list of items in the middle */
+.cart-items-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cart-empty-msg {
+    text-align: center;
+    color: #777777;
+    margin-top: 3rem;
+    font-style: italic;
+}
+
+.cart-item-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem;
+    background: #ffffff;
+    border: 1px solid #e2ded8;
+    border-radius: 6px;
+}
+
+.cart-item-img {
+    width: 50px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--forest-green);
+    margin-bottom: 0.2rem;
+}
+
+.cart-item-price {
+    font-size: 0.9rem;
+    color: var(--terracotta);
+    font-weight: 600;
+}
+
+/* little bin button on each item */
+.cart-remove-btn {
+    background: transparent;
+    border: none;
+    color: #d32f2f;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.4rem;
+    transition: transform 0.2s ease;
+}
+
+.cart-remove-btn:hover {
+    transform: scale(1.2);
+}
+
+/* total + clear cart button at the bottom */
+.cart-footer {
+    padding: 1.25rem 1.5rem;
+    border-top: 2px solid #e2ded8;
+    background: #ffffff;
+}
+
+.cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--forest-green);
+    margin-bottom: 1rem;
+}
+
+.cart-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.cart-actions button {
+    flex: 1;
 }
 
 /* ==========================================
@@ -299,6 +552,13 @@ footer {
     margin-bottom: 0;
 }
 
+/* wrapper around the scroll row + the 2 arrow buttons. it's position:
+   relative so the arrows can sit on top of the left/right edges.
+   (not using flex here bc then the scroll row grows instead of scrolling) */
+.carousel-container {
+    position: relative;
+}
+
 .picks-scroll {
     display: flex;
     gap: 1.25rem;
@@ -353,6 +613,41 @@ footer {
     border-radius: 3px;
 }
 
+/* the round left/right arrow buttons - js scrolls the row when you click them.
+   they get hidden on phones (see responsive) bc you can just swipe */
+.shelf-arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--forest-green);
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.shelf-arrow-btn:hover {
+    background-color: var(--terracotta);
+    transform: translateY(-50%) scale(1.08);
+}
+
+.prev-btn {
+    left: -15px;
+}
+
+.next-btn {
+    right: -15px;
+}
+
 /* ==========================================
    CATALOGUE PAGE
 ========================================== */
@@ -390,6 +685,59 @@ footer {
 
 .search-container button:active {
     transform: translateY(1px);
+}
+
+/* the bar under the search: "showing x of 33 books", sort dropdown, clear button */
+.catalogue-toolbar {
+    max-width: 1200px;
+    margin: 0 auto 1.25rem;
+    padding: 0 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+#results-count {
+    margin-right: auto; /* pushes the sort + clear stuff over to the right */
+    font-size: 0.875rem;
+    color: #6b6459;
+}
+
+.catalogue-toolbar label {
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+
+.catalogue-toolbar select {
+    padding: 0.5rem;
+    border: 1px solid #d8cdb8;
+    border-radius: 3px;
+    background: #ffffff;
+    font-family: var(--font-body);
+}
+
+#clear-filters-btn {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    color: var(--terracotta);
+    border: 1px solid var(--terracotta);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#clear-filters-btn:hover {
+    background: var(--terracotta);
+    color: #ffffff;
+}
+
+/* only shows up when the filters leave 0 books */
+#no-results {
+    max-width: 1200px;
+    margin: 0 auto 1.25rem;
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+    color: #6b6459;
 }
 
 .catalogue-wrapper {
@@ -594,58 +942,86 @@ footer {
     transform: translateY(1px);
 }
 
-/* Catalogue toolbar: count, sort, clear */
-.catalogue-toolbar {
-  max-width: 1200px;
-  margin: 0 auto 1.25rem;
-  padding: 0 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+/* --- Quick view popup (the "See the Book" button) ---
+   using the built-in <dialog> element so the browser handles the
+   dimmed background + closing with Esc for me */
+.quick-view-modal {
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+    max-width: 650px;
+    width: 90%;
+    background-color: var(--cream-bg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    margin: auto;
 }
 
-#results-count {
-  margin-right: auto;
-  font-size: 0.875rem;
-  color: #6b6459;
+/* the dark blurry layer behind the popup */
+.quick-view-modal::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
 }
 
-.catalogue-toolbar label {
-  font-size: 0.875rem;
-  font-weight: bold;
+.modal-content {
+    position: relative;
+    padding: 2rem;
 }
 
-.catalogue-toolbar select {
-  padding: 0.5rem;
-  border: 1px solid #d8cdb8;
-  border-radius: 3px;
-  background: #ffffff;
-  font-family: var(--font-body);
+.modal-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: var(--forest-green);
+    cursor: pointer;
 }
 
-#clear-filters-btn {
-  padding: 0.5rem 1rem;
-  background: transparent;
-  color: var(--terracotta);
-  border: 1px solid var(--terracotta);
-  border-radius: 3px;
-  cursor: pointer;
+/* book cover on the left, details on the right */
+.modal-body {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 1.5rem;
+    align-items: start;
 }
 
-#clear-filters-btn:hover {
-  background: var(--terracotta);
-  color: #ffffff;
+.modal-image-col img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    object-fit: cover;
 }
 
-#no-results {
-  max-width: 1200px;
-  margin: 0 auto 1.25rem;
-  padding: 1.5rem 1.25rem;
-  text-align: center;
-  color: #6b6459;
+.modal-details-col .author {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 0.5rem;
 }
 
+.modal-details-col .genre-tag {
+    font-size: 0.85rem;
+    text-transform: capitalize;
+    color: var(--terracotta);
+    margin-bottom: 0.75rem;
+}
+
+.modal-details-col .price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--forest-green);
+    margin-bottom: 1rem;
+}
+
+.modal-description {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    border-top: 1px solid #e2ded8;
+    padding-top: 0.75rem;
+}
 
 /* ==========================================
    GIFT BUNDLES PAGE
@@ -715,6 +1091,7 @@ footer {
     font-weight: bold;
     color: var(--terracotta);
     margin-bottom: 0.75rem;
+    flex-grow: 0; /* the description above is the one that stretches, otherwise the total would float around differently on each card */
 }
 
 .bundle-card button {
@@ -734,12 +1111,61 @@ footer {
     transform: translateY(1px);
 }
 
+/* --- Customise your bundle: the add-on tick boxes ---
+   js adds up the ticked ones and updates the total price live */
+.bundle-addons {
+    border: 1px dashed #d8cdb8;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    background-color: #fdfbf7;
+}
+
+.bundle-addons legend {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--forest-green);
+    padding: 0 0.4rem;
+}
+
+.addon-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--dark-text);
+    margin-top: 0.4rem;
+    cursor: pointer;
+}
+
+.addon-checkbox {
+    accent-color: var(--terracotta); /* makes the tick box terracotta instead of default blue */
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.bundle-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    margin-bottom: 1rem;
+}
+
 /* ==========================================
    BLOG / REVIEWS PAGE
 ========================================== */
 .featured-post {
+    background: #ffffff;
+    padding: 1.5625rem;
+    margin-bottom: 1.875rem;
     border-radius: 8px;
     box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.blog-sidebar {
+    background: #f4efe9;
+    padding: 1.25rem;
 }
 
 .post-tag {
@@ -889,6 +1315,55 @@ footer {
     font-size: 0.875rem;
 }
 
+/* --- Like button at the bottom of each review card ---
+   js adds .is-liked when you click it (fills it in terracotta + swaps
+   the heart for a solid one) and remembers it in localstorage */
+.card-footer {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f0ece6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.like-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    background: transparent;
+    border: 1px solid #d8cdb8;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--forest-green);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.like-btn:hover {
+    border-color: var(--terracotta);
+    color: var(--terracotta);
+}
+
+.like-btn.is-liked {
+    background-color: var(--terracotta);
+    border-color: var(--terracotta);
+    color: #ffffff;
+}
+
+/* inline-block is needed here, transforms (the scale) don't work on
+   plain inline elements - this was why the heart wasn't reacting before */
+.heart-icon {
+    display: inline-block;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.like-btn.is-liked .heart-icon {
+    transform: scale(1.2);
+}
+
 /* --- Newsletter box --- */
 .newsletter-box {
     text-align: center;
@@ -936,6 +1411,13 @@ footer {
 
 .newsletter-box button:hover {
     background-color: var(--terracotta);
+}
+
+/* the error message sits under the form (not inside it) so it doesn't
+   mess with the flex row */
+.newsletter-box .error-msg {
+    margin-top: 0.75rem;
+    text-align: center;
 }
 
 /* ==========================================
@@ -1146,6 +1628,41 @@ footer {
     text-decoration: underline;
 }
 
+/* --- Open / Closed badge ---
+   js checks the day + time and adds .open or .closed to the badge */
+.store-status-wrapper {
+    margin-bottom: 1.25rem;
+    padding: 0.85rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.open {
+    background-color: #2e7d32;
+    color: #ffffff;
+}
+
+.status-badge.closed {
+    background-color: #c62828;
+    color: #ffffff;
+}
+
+.hours-text {
+    font-size: 0.85rem;
+    color: #e2ded8;
+    margin-top: 0.4rem;
+}
+
 /* --- Form card --- */
 #contact-form {
     background: #ffffff;
@@ -1190,9 +1707,13 @@ footer {
     background-color: #fdfbf7;
 }
 
+.contact-form input,
+.contact-form textarea {
+    margin-top: 0.3125rem;
+}
+
 /* little glow when you click into an input, just so it feels a bit
    more responsive/alive instead of the default plain outline */
-       
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
@@ -1223,229 +1744,80 @@ footer {
     transform: translateY(1px);
 }
 
-
-/* ==========================================
-HEADER / HAMBURGER / ACTIVE LINK
-========================================== */
-
-/* Active page indicator */
-header nav a[aria-current="page"] {
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 6px;
-}
- 
-/* Cart badge */
-.cart-link { white-space: nowrap; }
- 
-/* Hamburger button: hidden on desktop */
-.hamburger-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  padding: 8px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #ffffff;
+/* --- FAQ accordion ---
+   answers are squashed to 0 height until js adds .is-open to the item,
+   then they expand. the + turns into an x when it's open */
+.faq-section {
+    margin-top: 3.5rem;
 }
 
-.hamburger-toggle:focus-visible {
-  outline-color: #ffffff;
-}
- 
-.hamburger-bar {
-  display: block;
-  width: 25px;
-  height: 3px;
-  background-color: currentColor; /* matches header text colour */
-  border-radius: 2px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
- 
-
-/* ==========================================
-   QUICK-VIEW MODAL & TOAST STYLES
-   ========================================== */
-
-/* Native <dialog> Modal Styling */
-.quick-view-modal {
-  border: none;
-  border-radius: 8px;
-  padding: 0;
-  max-width: 650px;
-  width: 90%;
-  background-color: var(--cream-bg, #fdfbf7);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  margin: auto;
+.faq-section h2 {
+    text-align: center;
+    color: var(--forest-green);
+    margin-bottom: 1.5rem;
 }
 
-/* Semi-transparent Backdrop Overlay */
-.quick-view-modal::backdrop {
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(3px);
+.faq-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
-.modal-content {
-  position: relative;
-  padding: 2rem;
+.faq-item {
+    border: 1px solid #e2ded8;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #ffffff;
 }
 
-.modal-close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1.25rem;
-  background: transparent;
-  border: none;
-  font-size: 1.8rem;
-  line-height: 1;
-  color: var(--forest-green, #2d4a3e);
-  cursor: pointer;
+.faq-question {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: transparent;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--forest-green);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
 }
 
-.modal-body {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 1.5rem;
-  align-items: start;
+.faq-question:hover {
+    background-color: #fdfbf7;
 }
 
-.modal-image-col img {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  object-fit: cover;
+.faq-icon {
+    font-size: 1.3rem;
+    color: var(--terracotta);
+    transition: transform 0.3s ease;
 }
 
-.modal-details-col .author {
-  font-style: italic;
-  color: #555;
-  margin-bottom: 0.5rem;
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease;
+    padding: 0 1.25rem;
+    background-color: #fdfbf7;
+    color: #444;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
-.modal-details-col .genre-tag {
-  font-size: 0.85rem;
-  text-transform: capitalize;
-  color: var(--terracotta, #c85a32);
-  margin-bottom: 0.75rem;
+.faq-item.is-open .faq-answer {
+    max-height: 200px;
+    padding: 1rem 1.25rem;
+    border-top: 1px dashed #e2ded8;
 }
 
-.modal-details-col .price {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--forest-green, #2d4a3e);
-  margin-bottom: 1rem;
+.faq-item.is-open .faq-icon {
+    transform: rotate(45deg); /* turns the + into an x */
 }
-
-.modal-description {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-  border-top: 1px solid #e2ded8;
-  padding-top: 0.75rem;
-}
-
-/* Toast Message Notification Styling */
-.toast-message {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background-color: var(--forest-green, #2d4a3e);
-  color: #ffffff;
-  padding: 0.85rem 1.4rem;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  font-size: 0.95rem;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
-  z-index: 10000;
-}
-
-.toast-message.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ==========================================
-   GIFT BUNDLES CUSTOMIZER STYLES
-   ========================================== */
-
-.bundle-addons {
-  border: 1px dashed #d8cdb8;
-  border-radius: 6px;
-  padding: 0.75rem 1rem;
-  margin: 1rem 0;
-  background-color: #fdfbf7;
-}
-
-.bundle-addons legend {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--forest-green, #2d4a3e);
-  padding: 0 0.4rem;
-}
-
-.addon-option {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--dark-text, #2b2b2b);
-  margin-top: 0.4rem;
-  cursor: pointer;
-}
-
-.addon-checkbox {
-  accent-color: var(--terracotta, #c85a32);
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-.bundle-price {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--terracotta, #c85a32);
-  margin-bottom: 1rem;
-}
-
-/* Toast notification */
-#toast {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translate(-50%, 20px);
-  max-width: 90%;
-  padding: 0.875rem 1.5rem;
-  background-color: var(--forest-dark);
-  color: #ffffff;
-  border-left: 4px solid var(--terracotta);
-  border-radius: 4px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-  font-size: 0.9375rem;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  z-index: 1000;
-}
-
-#toast.show {
-  opacity: 1;
-  transform: translate(-50%, 0);
-}
-
-
-
-
-
-
-
-
-
-
 
 /* ==========================================
    RESPONSIVE
@@ -1453,7 +1825,9 @@ header nav a[aria-current="page"] {
    tablet shrinks stuff a bit, phone stacks everything into one column,
    small phone tightens the text + spacing even more.
    also added proper text size changes this time, before it was only
-   the hero heading that changed and everything else stayed the same
+   the hero heading that changed and everything else stayed the same.
+   i also put a 600 one in for the arrows + popup so all the media
+   queries are in one place instead of scattered through the file
 ========================================== */
 @media screen and (max-width: 1024px) {
     .hero-left h1 {
@@ -1489,6 +1863,31 @@ header nav a[aria-current="page"] {
     nav ul {
         flex-direction: column;
     }
+
+    /* hamburger: the nav is hidden on phones until you tap the button
+       (js adds .is-open to the nav), and the 3 bars turn into an x */
+    .hamburger-toggle {
+        display: flex;
+        width: fit-content;
+        margin: 0.5rem 0.75rem 0.5rem auto; /* auto on the left pushes it to the right side */
+    }
+
+    header nav {
+        display: none;
+    }
+
+    header nav.is-open {
+        display: block;
+    }
+
+    header nav ul {
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .hamburger-toggle[aria-expanded="true"] .hamburger-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger-toggle[aria-expanded="true"] .hamburger-bar:nth-child(2) { opacity: 0; }
+    .hamburger-toggle[aria-expanded="true"] .hamburger-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     .hero-split {
         grid-template-columns: 1fr;
@@ -1570,6 +1969,24 @@ header nav a[aria-current="page"] {
     }
 }
 
+@media screen and (max-width: 600px) {
+    /* arrows hidden on phones, you can just swipe the row instead */
+    .shelf-arrow-btn {
+        display: none;
+    }
+
+    /* quick view popup stacks the cover on top of the details */
+    .modal-body {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .modal-image-col img {
+        max-width: 140px;
+    }
+}
+
 @media screen and (max-width: 480px) {
     body {
         font-size: 0.9rem;
@@ -1605,35 +2022,4 @@ header nav a[aria-current="page"] {
     nav ul li a {
         padding: 0.75rem 1rem;
     }
-}
-
-/* Mobile: collapse the nav behind the button */
-@media (max-width: 768px) {
-.hamburger-toggle { display: flex; width: fit-content; margin: 0.5rem 0.75rem 0.5rem auto; } 
-  header nav { display: none; }
-  header nav.is-open { display: block; }
- 
-  header nav ul {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
- 
-  /* Burger -> X */
-  .hamburger-toggle[aria-expanded="true"] .hamburger-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-  .hamburger-toggle[aria-expanded="true"] .hamburger-bar:nth-child(2) { opacity: 0; }
-  .hamburger-toggle[aria-expanded="true"] .hamburger-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-}
-
-
-/* Mobile Responsive Modal (< 600px) */
-@media (max-width: 600px) {
-  .modal-body {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    text-align: center;
-  }
-  .modal-image-col img {
-    max-width: 140px;
-  }
 }
