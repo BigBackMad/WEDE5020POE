@@ -448,3 +448,85 @@ function showToast(message) {
     toast.classList.remove('show');
   }, 3000);
 }
+
+// ==========================================
+// GIFT BUNDLES INTERACTIVE CUSTOMIZER
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  const bundlesContainer = document.querySelector('.bundles-container') || document.querySelector('.bundles-page');
+  if (!bundlesContainer) return; // Guard clause: runs only on bundles.html
+
+  const bundleCards = document.querySelectorAll('.bundle-card');
+
+  bundleCards.forEach(card => {
+    const basePrice = parseFloat(card.dataset.price || '0');
+    const checkboxes = card.querySelectorAll('.addon-checkbox');
+    const priceDisplay = card.querySelector('.price-value');
+    const addCartBtn = card.querySelector('.add-bundle-btn');
+
+    // 1. Recalculate Card Price on Checkbox Toggle
+    function updateCardPrice() {
+      let currentTotal = basePrice;
+
+      checkboxes.forEach(cb => {
+        if (cb.checked) {
+          const addonPrice = parseFloat(cb.dataset.addonPrice || '0');
+          currentTotal += addonPrice;
+        }
+      });
+
+      if (priceDisplay) {
+        priceDisplay.textContent = currentTotal.toFixed(2);
+      }
+    }
+
+    // Attach change listener to each checkbox
+    checkboxes.forEach(cb => cb.addEventListener('change', updateCardPrice));
+
+    // Initialize initial price
+    updateCardPrice();
+
+    // 2. Wire "Add Bundle to Cart" Button
+    if (addCartBtn) {
+      addCartBtn.addEventListener('click', () => {
+        const title = card.dataset.title || card.querySelector('h2')?.textContent || 'Gift Bundle';
+        
+        // Count selected add-ons for detailed toast feedback
+        const selectedAddonsCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+        const addonText = selectedAddonsCount > 0 ? ` with ${selectedAddonsCount} add-on(s)` : '';
+
+        // Increment global header cart count
+        if (typeof incrementCartBadge === 'function') {
+          incrementCartBadge(1);
+        }
+
+        // Show confirmation toast
+        if (typeof showToast === 'function') {
+          showToast(`Added "${title}"${addonText} to your cart!`);
+        }
+      });
+    }
+  });
+});
+
+// ==========================================
+// TOAST NOTIFICATION (used by bundles, quick view, etc.)
+// ==========================================
+function showToast(message, duration = 3000) {
+  let toast = document.getElementById('toast');
+
+  // Create the toast element once, reuse it after that
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    document.body.appendChild(toast);
+  }
+
+  toast.textContent = message;
+  toast.classList.add('show');
+
+  clearTimeout(toast.hideTimer);
+  toast.hideTimer = setTimeout(() => toast.classList.remove('show'), duration);
+}
