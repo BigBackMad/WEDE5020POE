@@ -301,19 +301,28 @@ document.addEventListener('DOMContentLoaded', () => {
     checkboxes.forEach(cb => cb.addEventListener('change', updateCardPrice));
     updateCardPrice();
 
-    // 2. "Add to Cart" button -> saves the bundle (with its add-on total) to the cart
+ // "Add to Cart" button -> saves the bundle (with selected book + add-ons)
     if (addCartBtn) {
       addCartBtn.addEventListener('click', () => {
         const baseTitle = card.dataset.title || card.querySelector('h2')?.textContent || 'Gift Bundle';
-        const price = card.querySelector('.price-value')?.textContent || basePrice;
+        const bookSelect = card.querySelector('.bundle-book-select');
+        const selectedBook = bookSelect ? bookSelect.value : '';
+
+        const addonCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+        const addonLabel = addonCount > 0 ? ` (+${addonCount} add-on${addonCount > 1 ? 's' : ''})` : '';
+
+        // Combines Bundle Title + Chosen Book (e.g. "The Cozy Corner Set (Book: It Ends With Us)")
+        const fullTitle = selectedBook ? `${baseTitle} (Book: ${selectedBook})${addonLabel}` : `${baseTitle}${addonLabel}`;
+        const price = priceDisplay ? priceDisplay.textContent : basePrice;
         const imgSrc = card.querySelector('img')?.src || '';
 
-        // Mention add-ons in the cart item so the higher price makes sense
-        const addonCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-        const title = addonCount > 0 ? `${baseTitle} (+${addonCount} add-on${addonCount > 1 ? 's' : ''})` : baseTitle;
+        if (typeof addBookToCart === 'function') {
+          addBookToCart(fullTitle, price, imgSrc);
+        }
 
-        addBookToCart(title, price, imgSrc);
-        showToast(`Added "${title}" to your cart!`);
+        if (typeof showToast === 'function') {
+          showToast(`Added "${baseTitle}" to your cart!`);
+        }
       });
     }
   });
